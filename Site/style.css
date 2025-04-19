@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Winky+Rough:ital,wght@0,300..900;1,300..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+body {
+    font-size: 100%;
+    font-family: "Winky Rough", sans-serif;
+}
+
+:root {
+    --tamanho_header: 100%;
+    --tamanho_footer: 100%;
+    --tamanho_main: calc(100vh - var(--tamanho_header) - var(--tamanho_footer) - 2px);
+}
+
+a {
+    color: black;
+}
+
+.agora {
+    font-weight: 700;
+}
+
+.logo {
+    height: 100px;
+    width: 100px;
+}
+
+/* HEADER */
+header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0px 160px;
+    height: var(--tamanho_header);
+    background-color: white;
+    font-size: 25px;
+    position: sticky;
+    top: 0;
+}
+
+header .navbar_esquerda {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    list-style: none;
+    gap: 35px;
+}
+
+header .navbar_direita {
+    display: flex;
+    flex-direction: row;
+    gap: 35px;
+    list-style: none;
+}
+
+/* MAIN */
+main {
+    height: var(--tamanho_main);
+    background-color: #a0e5a0;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+}
+
+.main_img {
+    height: 500px;
+}
+
+main p {
+    font-size: 25px;
+}
+
+.main_tsuru {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    justify-content: space-around;
+}
+
+/* FOOTER */
+footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0px 160px;
+    margin-top: 15px;
+    margin-bottom: 40px;
+    height: var(--tamanho_footer);
+    background-color: white;
+    font-size: 22px;
+}
+
+footer h6 {
+    font-size: 25px;
+}
+
+.footer_descricao .frase {
+    display: flex;
+    flex-direction: column;
+    margin-left: 18px;
+    gap: 7px;
+}
+
+.footer_fundador {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.footer_informacao {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.footer_contato img {
+    height: 25px;
+}
+
+.footer_contato {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.footer_contato p {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
