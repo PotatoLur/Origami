@@ -60,7 +60,7 @@ header .navbar_direita {
     list-style: none;
 }
 
-/* MAIN */
+/* MAIN HISTÓRIA */
 .historia {
     height: var(--tamanho_main);
     background-color: #a0e5a0;
@@ -134,10 +134,213 @@ header .navbar_direita {
     border: green solid 2px;
 }
 
+
+/* MAIN COMUNIDADE */
+.comunidade {
+    height: var(--tamanho_main);
+    background-color: #a0e5a0;
+    padding: 30px;
+    padding-bottom: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 25px;
+    gap: 40px;
+}
+
+.comunidade h1 {
+    font-size: 50px;
+}
+
+.sem_login {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 80px;
+    width: 90%;
+}
+
+.sem_login .bem_vindo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.sem_login button {
+    font-size: 20px;
+    padding: 8px;
+    background-color: green;
+    color: white;
+    border-radius: 4px;
+    font-weight: 700;
+    border: green solid 2px;
+}
+
+.sem_login img {
+    height: 500px;
+}
+
+.sem_login .exemplo1 {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    justify-content: space-around;
+    align-items: start;
+}
+
+.sem_login .exemplo1 .texto {
+    display: flex;
+    flex-direction: column;
+    border: black solid 2px;
+    padding: 20px 10px;
+    width: 40%;
+}
+
+.sem_login .exemplo2 {
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    justify-content: space-around;
+    align-items: start;
+}
+
+.sem_login .exemplo2 .texto {
+    display: flex;
+    flex-direction: column;
+    border: black solid 2px;
+    padding: 20px 10px;
+    width: 40%;
+}
+
+.com_login {
+    display: none;
+}
+
 button:hover {
     cursor: pointer;
     padding: 10px;
     font-size: 22px;
+    transition: 0.8s;
+}
+
+/* MAIN CADASTRO */
+
+.cadastro {
+    height: var(--tamanho_main);
+    background-color: #a0e5a0;
+    padding: 50px 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 27px
+}
+
+.cadastro .caixa {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    background-color:#f5f3eb;
+    color: #000000;
+    width: 30%;
+    height: 100%;
+    padding: 30px;
+    border-radius: 30px;
+}
+
+.cadastro .caixa input {
+    width: 50%;
+    text-align: center;
+    font-size: 25px;
+    height: 40px;
+    background-color: #a0e5a0;
+    border: black solid 1px;
+    border-radius: 8px;
+}
+
+.cadastro button {
+    font-size: 20px;
+    padding: 8px;
+    background-color: green;
+    color: white;
+    border-radius: 4px;
+    font-weight: 700;
+    border: green solid 2px;
+    margin-top: 15px;
+}
+
+.cadastro button:hover {
+    cursor: pointer;
+    color: black;
+    border: black solid 2px;
+    background-color: #a0e5a0;
+    transition: 0.8s;
+}
+
+/* MAIN LOGIN */
+
+.login {
+    height: var(--tamanho_main);
+    background-color: #a0e5a0;
+    padding: 50px 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 27px
+}
+
+.login .caixa {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    background-color:#f5f3eb;
+    color: #000000;
+    width: 30%;
+    height: 100%;
+    padding: 30px;
+    border-radius: 30px;
+}
+
+.login .caixa input {
+    width: 50%;
+    text-align: center;
+    font-size: 25px;
+    height: 40px;
+    background-color: #a0e5a0;
+    border: black solid 1px;
+    border-radius: 8px;
+}
+
+.login button {
+    font-size: 20px;
+    padding: 8px;
+    background-color: green;
+    color: white;
+    border-radius: 4px;
+    font-weight: 700;
+    border: green solid 2px;
+    margin-top: 15px;
+}
+
+.login .sem_cadastro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 20px;
+    padding: 10px;
+}
+
+.login .sem_cadastro button {
+    margin-top: 7px;
+}
+
+.login button:hover {
+    cursor: pointer;
+    color: black;
+    border: black solid 2px;
+    background-color: #a0e5a0;
     transition: 0.8s;
 }
 
