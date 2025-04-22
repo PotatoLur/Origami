@@ -69,7 +69,7 @@ header .navbar_direita {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 80px;
+    gap: 70px;
 }
 
 .main_img {
@@ -99,7 +99,6 @@ header .navbar_direita {
 
 .main_tsuru p {
     font-size: 27px;
-    width: 40%;
 }
 
 .historia .borda {
@@ -125,13 +124,14 @@ header .navbar_direita {
 }
 
 .historia button {
-    font-size: 20px;
+    font-size: 22px;
     padding: 8px;
     background-color: green;
     color: white;
     border-radius: 4px;
     font-weight: 700;
     border: green solid 2px;
+    font-family: "Winky Rough", sans-serif;
 }
 
 
@@ -160,21 +160,15 @@ header .navbar_direita {
     width: 90%;
 }
 
-.sem_login .bem_vindo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 5px;
-}
-
 .sem_login button {
-    font-size: 20px;
+    font-size: 22px;
     padding: 8px;
     background-color: green;
     color: white;
     border-radius: 4px;
     font-weight: 700;
     border: green solid 2px;
+    font-family: "Winky Rough", sans-serif;
 }
 
 .sem_login img {
@@ -220,7 +214,7 @@ header .navbar_direita {
 button:hover {
     cursor: pointer;
     padding: 10px;
-    font-size: 22px;
+    font-size: 24px;
     transition: 0.8s;
 }
 
@@ -233,7 +227,8 @@ button:hover {
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: 27px
+    font-size: 27px;
+    font-family: "Winky Rough", sans-serif;
 }
 
 .cadastro .caixa {
@@ -254,13 +249,15 @@ button:hover {
     text-align: center;
     font-size: 25px;
     height: 40px;
-    background-color: #a0e5a0;
+    background-color: #368f36;
+    color: white;
     border: black solid 1px;
     border-radius: 8px;
+    font-family: "Winky Rough", sans-serif;
 }
 
 .cadastro button {
-    font-size: 20px;
+    font-size: 25px;
     padding: 8px;
     background-color: green;
     color: white;
@@ -268,6 +265,7 @@ button:hover {
     font-weight: 700;
     border: green solid 2px;
     margin-top: 15px;
+    font-family: "Winky Rough", sans-serif;
 }
 
 .cadastro button:hover {
@@ -308,13 +306,15 @@ button:hover {
     text-align: center;
     font-size: 25px;
     height: 40px;
-    background-color: #a0e5a0;
+    background-color: #368f36;
+    color: white;
     border: black solid 1px;
     border-radius: 8px;
+    font-family: "Winky Rough", sans-serif;
 }
 
 .login button {
-    font-size: 20px;
+    font-size: 25px;
     padding: 8px;
     background-color: green;
     color: white;
@@ -322,6 +322,7 @@ button:hover {
     font-weight: 700;
     border: green solid 2px;
     margin-top: 15px;
+    font-family: "Winky Rough", sans-serif;
 }
 
 .login .sem_cadastro {
