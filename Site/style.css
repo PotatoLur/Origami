@@ -43,6 +43,7 @@ header {
     font-size: 25px;
     position: sticky;
     top: 0;
+    z-index: 10;
 }
 
 header a {
@@ -84,7 +85,7 @@ header .navbar_direita {
 .main_tsuru {
     display: flex;
     flex-direction: row;
-    width: 80%;
+    width: 75%;
     justify-content: space-between;
     align-items: start;
 }
@@ -112,7 +113,7 @@ header .navbar_direita {
     border: black solid 2px;
     padding: 30px 20px;
     gap: 30px;
-    width: 40%;
+    width: 48%;
 }
 
 .origami_tipo {
@@ -156,6 +157,11 @@ header .navbar_direita {
     font-size: 50px;
 }
 
+.comunidade_img {
+    display: flex;
+    height: 500px;
+    border: black solid 5px;
+}
 
 /* SEM LOGIN */
 
@@ -176,10 +182,6 @@ header .navbar_direita {
     font-weight: 700;
     border: green solid 2px;
     font-family: "Winky Rough", sans-serif;
-}
-
-.sem_login img {
-    height: 500px;
 }
 
 .sem_login .exemplo1 {
@@ -219,13 +221,13 @@ header .navbar_direita {
 
 .com_login {
     display: none;
-    width: 30%;
+    width: 40%;
     justify-content: space-around;
     align-items: center;
 }
 
 .com_login select {
-    font-size: 16px;
+    font-size: 18px;
     height: 30px;
     width: 28%;
     border-radius: 8px;
@@ -234,12 +236,13 @@ header .navbar_direita {
 }
 
 .com_login #ipt_pesquisar {
-    font-size: 16px;
-    width: 32%;
+    font-size: 18px;
+    width: 40%;
     height: 30px;
     border-radius: 8px;
     border: black solid 1px;
     font-family: "Winky Rough", sans-serif;
+    text-align: center;
 }
 
 .com_login button {
