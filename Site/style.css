@@ -357,7 +357,6 @@ header .navbar_direita {
     margin-right: 8px;
     font-size: 25px;
     position: absolute;
-    transform: translateY(-5%);
     background: none;
     border: none;
 }
@@ -373,8 +372,6 @@ header .navbar_direita {
     margin-top: 10px;
     font-family: "Winky Rough", sans-serif;
 }
-
-
 
 .login .sem_cadastro {
     display: flex;
@@ -396,6 +393,10 @@ button:hover {
     transition: 0.8s;
 }
 
+#navbar_sair {
+    display: none;
+    align-items: center;
+}
 
 /* FOOTER */
 

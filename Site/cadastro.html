@@ -83,19 +83,47 @@
         }
         let lista_usuario = JSON.parse(sessionStorage.getItem('lista') || '[]');
         if (ipt_email.value && ipt_usuario.value && ipt_senha.value) {
+            if (ipt_email.value.includes('@') && ipt_email.value.includes('.com')) {
+                if (ipt_usuario.value.length >= 6 && ipt_senha.value.length >= 6) {
+                    if ((ipt_senha.value.includes('0') ||
+                        ipt_senha.value.includes('1') ||
+                        ipt_senha.value.includes('2') ||
+                        ipt_senha.value.includes('3') ||
+                        ipt_senha.value.includes('4') ||
+                        ipt_senha.value.includes('5') ||
+                        ipt_senha.value.includes('6') ||
+                        ipt_senha.value.includes('7') ||
+                        ipt_senha.value.includes('8') ||
+                        ipt_senha.value.includes('9')) &&
+                        (ipt_senha.value.includes('!') ||
+                        ipt_senha.value.includes('@') ||
+                        ipt_senha.value.includes('#') ||
+                        ipt_senha.value.includes('$'))
+                    ) {
+                        lista_usuario.push(
+                            {
+                                email: ipt_email.value,
+                                usuario: ipt_usuario.value,
+                                senha: ipt_senha.value
+                            }
+                        )
 
-            lista_usuario.push(
-                {
-                    email: ipt_email.value,
-                    usuario: ipt_usuario.value,
-                    senha: ipt_senha.value
+                        sessionStorage.setItem('lista', JSON.stringify(lista_usuario));
+
+                        alert(`Cadastro realizado! Seja bem vindo ${ipt_usuario.value}!`)
+                        window.location = './login.html';
+                    }
+                    else {
+                        alert('A senha precisa ter pelo menos um número e pelo menos um dos caractere especial (!, @, #, $)')
+                    }
                 }
-            )
-
-            sessionStorage.setItem('lista', JSON.stringify(lista_usuario));
-
-            alert(`Cadastro realizado! Seja bem vindo ${ipt_usuario.value}!`)
-            window.location = './login.html';
+                else {
+                    alert('O usuário e a senha precisa ter pelo menos 6 dígitos');
+                }
+            }
+            else {
+                alert('O email precisa ter @ e .com.');
+            }
         }
         else {
             alert('Preencher todos os campos!')
