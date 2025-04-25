@@ -78,15 +78,23 @@
     const ipt_senha = document.querySelector('#ipt_senha');
 
     function cadastrar() {
-        const email = ipt_email.value;
-        const usuario = ipt_usuario.value;
-        const senha = ipt_senha.value;
+        if (ipt_email.value == 'aoki') {
+            sessionStorage.clear();
+        }
+        let lista_usuario = JSON.parse(sessionStorage.getItem('lista') || '[]');
+        if (ipt_email.value && ipt_usuario.value && ipt_senha.value) {
 
-        if (email && usuario && senha) {
-            sessionStorage.setItem('email', email)
-            sessionStorage.setItem('usuario', usuario);
-            sessionStorage.setItem('senha', senha);
+            lista_usuario.push(
+                {
+                    email: ipt_email.value,
+                    usuario: ipt_usuario.value,
+                    senha: ipt_senha.value
+                }
+            )
 
+            sessionStorage.setItem('lista', JSON.stringify(lista_usuario));
+
+            alert(`Cadastro realizado! Seja bem vindo ${ipt_usuario.value}!`)
             window.location = './login.html';
         }
         else {

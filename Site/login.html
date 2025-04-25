@@ -83,18 +83,22 @@
     }
 
     function login() {
-        const email = sessionStorage.getItem('email');
-        const usuario = sessionStorage.getItem('usuario');
-        const senha = sessionStorage.getItem('senha');
-        
-        const input_usuario = ipt_usuario.value;
-        const input_senha = ipt_senha.value;
+        var logado = false;
+        const usuario = document.querySelector('#ipt_usuario');
+        const senha = document.querySelector('#ipt_senha');
 
-        if (usuario == input_usuario && senha == input_senha){
-            alert(`Seja bem vindo! ${usuario}.`)
-        }
-        else {
-            alert('Usuário ou senha incorretos!')
+        var lista = JSON.parse(sessionStorage.getItem('lista'));
+
+        for (var i = 0; i < lista.length; i++) {
+            if (usuario.value == lista[i].usuario && senha.value == lista[i].senha) {
+                alert('Usuário validado!');
+                logado = sessionStorage.setItem('logado', true);
+                window.location = './comunidade.html';
+                break;
+            }
+            else {
+                alert('Tente novamente!');
+            }
         }
     }
 

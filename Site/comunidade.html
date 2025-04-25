@@ -34,7 +34,7 @@
 
     <main class="comunidade">
         <h1>Maior comunidade de Origami do Mundo</h1>
-        <div class="sem_login">
+        <div class="sem_login" id="sem_login">
             <div class="diferente_tipo">
                 <p>Seja bem vindo a galeria dos origamis, aproveite essa pequena amostra feita por alguns membros da
                     comunidade.</p>
@@ -73,7 +73,7 @@
                 <button onclick="irParaCadastro()">Cadastrar</button>
             </div>
         </div>
-        <div class="com_login">
+        <div class="com_login" id="com_login">
             <label>Pesquisar: </label>
             <select name="sel_opcoes" id="sel_opcoes">
                 <option value="tradicional">Tradicional/Outros</option>
@@ -116,6 +116,12 @@
 </body>
 
 <script>
+    var logado = false;
+    logado = sessionStorage.getItem('logado');
+    if (logado){
+        sem_login.style.display = 'none';
+        com_login.style.display = 'flex';
+    }
     function irParaCadastro() {
         window.location = './cadastro.html';
     }
