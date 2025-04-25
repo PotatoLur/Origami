@@ -41,7 +41,7 @@
             <input type="text" id="ipt_usuario">
             <label>Senha: </label>
             <input type="text" id="ipt_senha">
-            <button>Cadastrar</button>
+            <button onclick="cadastrar()">Cadastrar</button>
         </div>
     </main>
 
@@ -71,5 +71,28 @@
             <p><img src="./img/whatsapp.webp" alt="">(11) 97144-2227</p>
         </div>
 </body>
+
+<script>
+    const ipt_email = document.querySelector('#ipt_email');
+    const ipt_usuario = document.querySelector('#ipt_usuario');
+    const ipt_senha = document.querySelector('#ipt_senha');
+
+    function cadastrar() {
+        const email = ipt_email.value;
+        const usuario = ipt_usuario.value;
+        const senha = ipt_senha.value;
+
+        if (email && usuario && senha) {
+            sessionStorage.setItem('email', email)
+            sessionStorage.setItem('usuario', usuario);
+            sessionStorage.setItem('senha', senha);
+
+            window.location = './login.html';
+        }
+        else {
+            alert('Preencher todos os campos!')
+        }
+    }    
+</script>
 
 </html>

@@ -342,7 +342,27 @@ header .navbar_direita {
     font-family: "Winky Rough", sans-serif;
 }
 
-.login button {
+.login #senha {
+    display: flex;
+    align-items: center;
+    width: 50%;
+    justify-content: end;
+}
+
+.login #senha input {
+    width: 100%;
+}
+
+.login #senha button {
+    margin-right: 8px;
+    font-size: 25px;
+    position: absolute;
+    transform: translateY(-5%);
+    background: none;
+    border: none;
+}
+
+.login #login, #cadastro {
     font-size: 25px;
     padding: 8px;
     background-color: green;
@@ -353,6 +373,8 @@ header .navbar_direita {
     margin-top: 10px;
     font-family: "Winky Rough", sans-serif;
 }
+
+
 
 .login .sem_cadastro {
     display: flex;

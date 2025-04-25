@@ -36,14 +36,17 @@
         <div class="caixa">
             <h2>Login</h2>
             <label>Usuário: </label>
-            <input type="text" id="ipt_email">
+            <input type="text" id="ipt_usuario">
             <label>Senha: </label>
-            <input type="text" id="ipt_senha">
-            <button>Login</button>
+            <div id="senha">
+                <input type="password" id="ipt_senha">
+                <button id="mostrar_senha" onclick="mostrar_senha()">&#x1F441;</button>
+            </div>
+            <button id="login" onclick="login()">Login</button>
         </div>
         <div class="sem_cadastro">
             <p>Ainda não tem cadastro?</p>
-            <button onclick="cadastrar()">Cadastrar</button>
+            <button onclick="irParaCadastro()" id="cadastro">Cadastrar</button>
         </div>
     </main>
 
@@ -75,8 +78,35 @@
 </body>
 
 <script>
-    function cadastrar(){
+    function irParaCadastro() {
         window.location = './cadastro.html';
+    }
+
+    function login() {
+        const email = sessionStorage.getItem('email');
+        const usuario = sessionStorage.getItem('usuario');
+        const senha = sessionStorage.getItem('senha');
+        
+        const input_usuario = ipt_usuario.value;
+        const input_senha = ipt_senha.value;
+
+        if (usuario == input_usuario && senha == input_senha){
+            alert(`Seja bem vindo! ${usuario}.`)
+        }
+        else {
+            alert('Usuário ou senha incorretos!')
+        }
+    }
+
+    function mostrar_senha() {
+        const ipt_senha = document.querySelector('#ipt_senha');
+
+        if (ipt_senha.getAttribute('type') == 'password') {
+            ipt_senha.setAttribute('type', 'text');
+        }
+        else {
+            ipt_senha.setAttribute('type', 'password');
+        }
     }
 </script>
 
