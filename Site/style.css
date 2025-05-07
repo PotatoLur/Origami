@@ -194,6 +194,9 @@ header .navbar_direita {
     width: 50%;
 }
 
+.autor h1 {
+    border-bottom: black solid 3px;
+}
 
 /* SEM LOGIN */
 
