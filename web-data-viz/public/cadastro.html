@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+    <header>
+        <nav class="navbar_esquerda">
+            <a href="index.html"><img class="logo" src="./img/logo.png" alt="logo"></a>
+            <li>
+                <a href="index.html">História</a>
+            </li>
+            <li>
+                <a href="comunidade.html">Comunidade</a>
+            </li>
+            <li>
+                <a href="#contato">Contato</a>
+            </li>
+            <li>
+                <a href="autor.html">Autor</a>
+            </li>
+        </nav>
+        <nav class="navbar_direita">
+            <li class="agora">
+                <a href="cadastro.html">Cadastro</a>
+            </li>
+            <li>
+                <a href="login.html">Login</a>
+            </li>
+        </nav>
+    </header>
+
+    <main class="cadastro">
+        <div class="caixa">
+            <h2>Cadastro</h2>
+            <label>E-mail: </label>
+            <input type="text" id="ipt_email">
+            <label>Usuário: </label>
+            <input type="text" id="ipt_usuario">
+            <label>Senha: </label>
+            <input type="text" id="ipt_senha">
+            <div class="com_login">
+                <p>Já possui login? <a href="login.html">Fazer login</a></p>
+            </div>
+            <button onclick="cadastrar()">Cadastrar</button>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer_descricao">
+            <a href="index.html"><img class="logo" src="./img/logo.png" alt="logo"></a>
+            <div class="frase">
+                <p>Mundo dos origamis</p>
+                <p>Descubra novos origamis</p>
+                <p>Compartilhe os seus projetos</p>
+            </div>
+        </div>
+        <div class="footer_fundador">
+            <h6>Desenvolvedor</h6>
+            <a href="autor.html">Guilherme Aoki Eguchi</a>
+        </div>
+        <div class="footer_informacao">
+            <h6>Mais informações</h6>
+            <a href="index.html">História</a>
+            <a href="comunidade.html">Comunidade</a>
+            <a href="cadastro.html">Cadastro</a>
+            <a href="login.html">Login</a>
+        </div>
+        <div class="footer_contato" id="contato">
+            <h6>Contato</h6>
+            <p><img src="./img/email.jpg" alt="">guilherme.eguchi@sptech.school</p>
+            <p><img src="./img/whatsapp.webp" alt="">(11) 97144-2227</p>
+        </div>
+</body>
+
+</html>
+
+<script>
+
+  // Array para armazenar empresas cadastradas para validação de código de ativação 
+  let listaEmpresasCadastradas = [];
+
+  function cadastrar() {
+    // aguardar();
+
+    //Recupere o valor da nova input pelo nome do id
+    // Agora vá para o método fetch logo abaixo
+    var usuarioVar = ipt_usuario.value;
+    var emailVar = ipt_email.value;
+    var senhaVar = ipt_senha.value;
+    var idEmpresaVincular
+
+    // Verificando se há algum campo em branco
+    if (
+      usuarioVar == "" ||
+      emailVar == "" ||
+      senhaVar == ""
+    ) {
+      // cardErro.style.display = "block";
+      mensagem_erro.innerHTML =
+        "(Mensagem de erro para todos os campos em branco)";
+
+      finalizarAguardar();
+      return false;
+    } else if (
+      usuarioVar.length > 1 &&
+      emailVar.includes('@') &&
+      emailVar.includes('.') &&
+      senhaVar.length > 6
+    ) {
+      // setInterval(sumirMensagem, 5000);
+    } else {
+      // cardErro.style.display = "block";
+      mensagem_erro.innerHTML =
+        "(Mensagem de erro, cadastro inválido)";
+
+      finalizarAguardar();
+      return false;
+    }
+
+    // Verificando se o código de ativação é de alguma empresa cadastrada
+    // for (let i = 0; i < listaEmpresasCadastradas.length; i++) {
+    //   if (listaEmpresasCadastradas[i].codigo_ativacao == codigoVar) {
+    //     idEmpresaVincular = listaEmpresasCadastradas[i].id
+    //     console.log("Código de ativação válido.");
+    //     break;
+    //   } else {
+    //     cardErro.style.display = "block";
+    //     mensagem_erro.innerHTML = "(Mensagem de erro para código inválido)";
+    //     finalizarAguardar();
+    //   }
+    // }
+
+    // Enviando o valor da nova input
+    fetch("/usuarios/cadastrar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        // crie um atributo que recebe o valor recuperado aqui
+        // Agora vá para o arquivo routes/usuario.js
+        usuarioServer: usuarioVar,
+        emailServer: emailVar,
+        senhaServer: senhaVar,
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+
+        if (resposta.ok) {
+          // cardErro.style.display = "block";
+
+          mensagem_erro.innerHTML =
+            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+
+          setTimeout(() => {
+            window.location = "./login.html";
+          }, "2000");
+
+          limparFormulario();
+          finalizarAguardar();
+        } else {
+          throw "Houve um erro ao tentar realizar o cadastro!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+        finalizarAguardar();
+      });
+
+    return false;
+  }
+
+  // Listando empresas cadastradas 
+  function listar() {
+    fetch("/empresas/listar", {
+      method: "GET",
+    })
+      .then(function (resposta) {
+        resposta.json().then((empresas) => {
+          empresas.forEach((empresa) => {
+            listaEmpresasCadastradas.push(empresa);
+
+            console.log("listaEmpresasCadastradas")
+            console.log(listaEmpresasCadastradas[0].codigo_ativacao)
+          });
+        });
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+      });
+  }
+
+  // function sumirMensagem() {
+  //   cardErro.style.display = "none";
+  // }
+</script>

@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastrar</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Login</title>
+    <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
@@ -88,27 +88,11 @@
         </div>
 </body>
 
+</html>
+
 <script>
     function irParaCadastro() {
         window.location = './cadastro.html';
-    }
-
-    function login() {
-        var logado = false;
-        const usuario = document.querySelector('#ipt_usuario');
-        const senha = document.querySelector('#ipt_senha');
-
-        var lista = JSON.parse(sessionStorage.getItem('lista'));
-
-        for (var i = 0; i < lista.length; i++) {
-            if (usuario.value == lista[i].usuario && senha.value == lista[i].senha) {
-                alert('Usuário validado!');
-                logado = sessionStorage.setItem('logado', true);
-                window.location = './comunidade.html';
-                break;
-            }
-        }
-        alert('Tente novamente!');
     }
 
     function mostrar_senha() {
@@ -128,6 +112,75 @@
             <path d="M3.35 5.47q-.27.24-.518.487A13 13 0 0 0 1.172 8l.195.288c.335.48.83 1.12 1.465 1.755C4.121 11.332 5.881 12.5 8 12.5c.716 0 1.39-.133 2.02-.36l.77.772A7 7 0 0 1 8 13.5C3 13.5 0 8 0 8s.939-1.721 2.641-3.238l.708.709zm10.296 8.884-12-12 .708-.708 12 12z"/>`
         }
     }
-</script>
 
-</html>
+    function login() {
+        aguardar();
+        var logado = false;
+        var usuarioVar = ipt_usuario.value;
+        var senhaVar = ipt_senha.value;
+
+        if (usuarioVar == "" || senhaVar == "") {
+            cardErro.style.display = "block"
+            mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
+            finalizarAguardar();
+            return false;
+        }
+        else {
+            setInterval(sumirMensagem, 5000)
+        }
+
+        console.log("FORM LOGIN: ", usuarioVar);
+        console.log("FORM SENHA: ", senhaVar);
+
+        fetch("/usuarios/autenticar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                usuarioServer: usuarioVar,
+                senhaServer: senhaVar,
+            })
+        }).then(function (resposta) {
+            console.log("ESTOU NO THEN DO entrar()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+                logado = sessionStorage.setItem(true);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+                    sessionStorage.EMAIL_USUARIO = json.email;
+                    sessionStorage.NOME_USUARIO = json.nome;
+                    // sessionStorage.ID_USUARIO = json.id;
+                    sessionStorage.AQUARIOS = JSON.stringify(json.aquarios)
+
+                    setTimeout(function () {
+                        window.location = "./comunidade.html";
+                    }, 1000); // apenas para exibir o loading
+
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar realizar o login!");
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                    finalizarAguardar(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+
+        return false;
+    }
+
+    function sumirMensagem() {
+        cardErro.style.display = "none"
+    }
+
+</script>
