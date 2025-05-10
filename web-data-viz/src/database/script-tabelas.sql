@@ -1,65 +1,56 @@
--- Arquivo de apoio, caso você queira criar tabelas como as aqui criadas para a API funcionar.
--- Você precisa executar os comandos no banco de dados para criar as tabelas,
--- ter este arquivo aqui não significa que a tabela em seu BD estará como abaixo!
+CREATE DATABASE origami;
 
-/*
-comandos para mysql server
-*/
-
-CREATE DATABASE aquatech;
-
-USE aquatech;
-
-CREATE TABLE empresa (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	razao_social VARCHAR(50),
-	cnpj CHAR(14),
-	codigo_ativacao VARCHAR(50)
-);
+USE origami;
 
 CREATE TABLE usuario (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	nome VARCHAR(50),
-	email VARCHAR(50),
-    cpf VARCHAR(15),
-	senha VARCHAR(50),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+	id INT NOT NULL AUTO_INCREMENT,
+    email VARCHAR (45),
+    nome VARCHAR (45),
+    senha VARCHAR (45),
+    PRIMARY KEY (id)
 );
 
-CREATE TABLE aviso (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	titulo VARCHAR(100),
-	descricao VARCHAR(150),
-	fk_usuario INT,
-	FOREIGN KEY (fk_usuario) REFERENCES usuario(id)
+CREATE TABLE projeto (
+	id INT NOT NULL,
+    fkUsuario INT NOT NULL,
+    nome VARCHAR (45),
+    tipo VARCHAR (45),
+    curtida INT,
+    PRIMARY KEY (id, fkUsuario),
+    FOREIGN KEY (fkUsuario) REFERENCES usuario (id)
 );
 
-create table aquario (
-/* em nossa regra de negócio, um aquario tem apenas um sensor */
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	descricao VARCHAR(300),
-	fk_empresa INT,
-	FOREIGN KEY (fk_empresa) REFERENCES empresa(id)
+CREATE TABLE comentario (
+	id INT NOT NULL,
+    fkProjeto INT NOT NULL,
+    fkUsuario INT NOT NULL,
+    comentario VARCHAR (250),
+    PRIMARY KEY (id, fkProjeto, fkUsuario),
+    FOREIGN KEY (fkProjeto) REFERENCES projeto (id),
+    FOREIGN KEY (fkUsuario) REFERENCES usuario (id)
 );
 
-/* esta tabela deve estar de acordo com o que está em INSERT de sua API do arduino - dat-acqu-ino */
+INSERT INTO usuario (email, nome, senha) VALUES
+	('joao@email.com', 'joaosilva', 'senha123'),
+	('maria@email.com', 'mariasantos', 'senha456'),
+	('pedro@email.com', 'pedroalves', 'senha789'),
+	('ana@email.com', 'anacarvalho', 'senha321');
 
-create table medida (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	dht11_umidade DECIMAL,
-	dht11_temperatura DECIMAL,
-	luminosidade DECIMAL,
-	lm35_temperatura DECIMAL,
-	chave TINYINT,
-	momento DATETIME,
-	fk_aquario INT,
-	FOREIGN KEY (fk_aquario) REFERENCES aquario(id)
-);
+INSERT INTO projeto (id, fkUsuario, nome, tipo, curtida) VALUES
+	(1, 1, 'Tsuru', 'Origami Tradicional', 15),
+	(2, 2, 'Flor de Lótus', 'Origami Modular', 25),
+	(3, 3, 'Cisne', 'Origami 3D', 30),
+	(4, 4, 'Estrela Ninja', 'Origami Modular', 12),
+	(5, 1, 'Borboleta', 'Origami Tradicional', 20);
 
-insert into empresa (razao_social, codigo_ativacao) values ('Empresa 1', 'ED145B');
-insert into empresa (razao_social, codigo_ativacao) values ('Empresa 2', 'A1B2C3');
-insert into aquario (descricao, fk_empresa) values ('Aquário de Estrela-do-mar', 1);
-insert into aquario (descricao, fk_empresa) values ('Aquário de Peixe-dourado', 2);
+INSERT INTO comentario (id, fkProjeto, fkUsuario, comentario) VALUES
+	(1, 1, 2, 'Muito bonito seu tsuru!'),
+	(2, 2, 1, 'Adorei sua flor de lótus!'),
+	(3, 3, 4, 'Esse cisne ficou incrível!'),
+	(4, 4, 3, 'Estrela muito bem feita!'),
+	(5, 5, 2, 'Linda borboleta!'),
+	(6, 1, 3, 'O papel usado ficou ótimo!'),
+	(7, 3, 1, 'Nunca vi um cisne tão detalhado!'),
+	(8, 2, 4, 'Parabéns pelo trabalho!');
 
-SELECT * FROM usuario;
+SELECT * FROM projeto;

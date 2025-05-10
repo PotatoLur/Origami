@@ -286,7 +286,6 @@ header .navbar_direita {
 }
 
 
-
 /* MAIN CADASTRO */
 
 .cadastro {
@@ -337,6 +336,11 @@ header .navbar_direita {
     font-family: "Winky Rough", sans-serif;
 }
 
+.cadastro #div_erro {
+    display: hidden;
+    font-size: 20px;
+    color: red;
+}
 
 /* MAIN LOGIN */
 

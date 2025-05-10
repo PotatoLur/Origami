@@ -2,80 +2,81 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro</title>
-    <link rel="stylesheet" href="./css/style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadastro</title>
+  <link rel="stylesheet" href="./css/style.css">
 </head>
 
 <body>
-    <header>
-        <nav class="navbar_esquerda">
-            <a href="index.html"><img class="logo" src="./img/logo.png" alt="logo"></a>
-            <li>
-                <a href="index.html">História</a>
-            </li>
-            <li>
-                <a href="comunidade.html">Comunidade</a>
-            </li>
-            <li>
-                <a href="#contato">Contato</a>
-            </li>
-            <li>
-                <a href="autor.html">Autor</a>
-            </li>
-        </nav>
-        <nav class="navbar_direita">
-            <li class="agora">
-                <a href="cadastro.html">Cadastro</a>
-            </li>
-            <li>
-                <a href="login.html">Login</a>
-            </li>
-        </nav>
-    </header>
+  <header>
+    <nav class="navbar_esquerda">
+      <a href="index.html"><img class="logo" src="./img/logo.png" alt="logo"></a>
+      <li>
+        <a href="index.html">História</a>
+      </li>
+      <li>
+        <a href="comunidade.html">Comunidade</a>
+      </li>
+      <li>
+        <a href="#contato">Contato</a>
+      </li>
+      <li>
+        <a href="autor.html">Autor</a>
+      </li>
+    </nav>
+    <nav class="navbar_direita">
+      <li class="agora">
+        <a href="cadastro.html">Cadastro</a>
+      </li>
+      <li>
+        <a href="login.html">Login</a>
+      </li>
+    </nav>
+  </header>
 
-    <main class="cadastro">
-        <div class="caixa">
-            <h2>Cadastro</h2>
-            <label>E-mail: </label>
-            <input type="text" id="ipt_email">
-            <label>Usuário: </label>
-            <input type="text" id="ipt_usuario">
-            <label>Senha: </label>
-            <input type="text" id="ipt_senha">
-            <div class="com_login">
-                <p>Já possui login? <a href="login.html">Fazer login</a></p>
-            </div>
-            <button onclick="cadastrar()">Cadastrar</button>
-        </div>
-    </main>
+  <main class="cadastro">
+    <div class="caixa">
+      <h2>Cadastro</h2>
+      <span id="div_erro"></span>
+      <label>E-mail: </label>
+      <input type="text" id="ipt_email">
+      <label>Usuário: </label>
+      <input type="text" id="ipt_nome">
+      <label>Senha: </label>
+      <input type="text" id="ipt_senha">
+      <div class="com_login">
+        <p>Já possui login? <a href="login.html">Fazer login</a></p>
+      </div>
+      <button onclick="cadastrar()">Cadastrar</button>
+    </div>
+  </main>
 
-    <footer>
-        <div class="footer_descricao">
-            <a href="index.html"><img class="logo" src="./img/logo.png" alt="logo"></a>
-            <div class="frase">
-                <p>Mundo dos origamis</p>
-                <p>Descubra novos origamis</p>
-                <p>Compartilhe os seus projetos</p>
-            </div>
-        </div>
-        <div class="footer_fundador">
-            <h6>Desenvolvedor</h6>
-            <a href="autor.html">Guilherme Aoki Eguchi</a>
-        </div>
-        <div class="footer_informacao">
-            <h6>Mais informações</h6>
-            <a href="index.html">História</a>
-            <a href="comunidade.html">Comunidade</a>
-            <a href="cadastro.html">Cadastro</a>
-            <a href="login.html">Login</a>
-        </div>
-        <div class="footer_contato" id="contato">
-            <h6>Contato</h6>
-            <p><img src="./img/email.jpg" alt="">guilherme.eguchi@sptech.school</p>
-            <p><img src="./img/whatsapp.webp" alt="">(11) 97144-2227</p>
-        </div>
+  <footer>
+    <div class="footer_descricao">
+      <a href="index.html"><img class="logo" src="./img/logo.png" alt="logo"></a>
+      <div class="frase">
+        <p>Mundo dos origamis</p>
+        <p>Descubra novos origamis</p>
+        <p>Compartilhe os seus projetos</p>
+      </div>
+    </div>
+    <div class="footer_fundador">
+      <h6>Desenvolvedor</h6>
+      <a href="autor.html">Guilherme Aoki Eguchi</a>
+    </div>
+    <div class="footer_informacao">
+      <h6>Mais informações</h6>
+      <a href="index.html">História</a>
+      <a href="comunidade.html">Comunidade</a>
+      <a href="cadastro.html">Cadastro</a>
+      <a href="login.html">Login</a>
+    </div>
+    <div class="footer_contato" id="contato">
+      <h6>Contato</h6>
+      <p><img src="./img/email.jpg" alt="">guilherme.eguchi@sptech.school</p>
+      <p><img src="./img/whatsapp.webp" alt="">(11) 97144-2227</p>
+    </div>
 </body>
 
 </html>
@@ -90,36 +91,34 @@
 
     //Recupere o valor da nova input pelo nome do id
     // Agora vá para o método fetch logo abaixo
-    var usuarioVar = ipt_usuario.value;
+    var nomeVar = ipt_nome.value;
     var emailVar = ipt_email.value;
     var senhaVar = ipt_senha.value;
-    var idEmpresaVincular
+    // var idEmpresaVincular
 
     // Verificando se há algum campo em branco
     if (
-      usuarioVar == "" ||
+      nomeVar == "" ||
       emailVar == "" ||
       senhaVar == ""
     ) {
-      // cardErro.style.display = "block";
-      mensagem_erro.innerHTML =
-        "(Mensagem de erro para todos os campos em branco)";
+      div_erro.style.display = "block";
+      div_erro.innerHTML = "Preencher todos os campos.";
 
-      finalizarAguardar();
+      // finalizarAguardar();
       return false;
     } else if (
-      usuarioVar.length > 1 &&
+      nomeVar.length > 1 &&
       emailVar.includes('@') &&
       emailVar.includes('.') &&
       senhaVar.length > 6
     ) {
-      // setInterval(sumirMensagem, 5000);
+      div_erro.style.display = "none";
     } else {
-      // cardErro.style.display = "block";
-      mensagem_erro.innerHTML =
-        "(Mensagem de erro, cadastro inválido)";
+      div_erro.style.display = "block";
+      div_erro.innerHTML = "Mensagem de erro, cadastro inválido";
 
-      finalizarAguardar();
+      // finalizarAguardar();
       return false;
     }
 
@@ -131,7 +130,7 @@
     //     break;
     //   } else {
     //     cardErro.style.display = "block";
-    //     mensagem_erro.innerHTML = "(Mensagem de erro para código inválido)";
+    //     div_erro.innerHTML = "(Mensagem de erro para código inválido)";
     //     finalizarAguardar();
     //   }
     // }
@@ -144,8 +143,8 @@
       },
       body: JSON.stringify({
         // crie um atributo que recebe o valor recuperado aqui
-        // Agora vá para o arquivo routes/usuario.js
-        usuarioServer: usuarioVar,
+        // Agora vá para o arquivo routes/nome.js
+        nomeServer: nomeVar,
         emailServer: emailVar,
         senhaServer: senhaVar,
       }),
@@ -155,47 +154,45 @@
 
         if (resposta.ok) {
           // cardErro.style.display = "block";
-
-          mensagem_erro.innerHTML =
-            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
+          div_erro.innerHTML = "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
 
           setTimeout(() => {
             window.location = "./login.html";
-          }, "2000");
+          }, "1000");
 
           limparFormulario();
-          finalizarAguardar();
+          // finalizarAguardar();
         } else {
           throw "Houve um erro ao tentar realizar o cadastro!";
         }
       })
       .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-        finalizarAguardar();
+        console.log(`#ERRO 1: ${resposta}`);
+        // finalizarAguardar();
       });
 
     return false;
   }
 
   // Listando empresas cadastradas 
-  function listar() {
-    fetch("/empresas/listar", {
-      method: "GET",
-    })
-      .then(function (resposta) {
-        resposta.json().then((empresas) => {
-          empresas.forEach((empresa) => {
-            listaEmpresasCadastradas.push(empresa);
+  // function listar() {
+  //   fetch("/empresas/listar", {
+  //     method: "GET",
+  //   })
+  //     .then(function (resposta) {
+  //       resposta.json().then((empresas) => {
+  //         empresas.forEach((empresa) => {
+  //           listaEmpresasCadastradas.push(empresa);
 
-            console.log("listaEmpresasCadastradas")
-            console.log(listaEmpresasCadastradas[0].codigo_ativacao)
-          });
-        });
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-      });
-  }
+  //           console.log("listaEmpresasCadastradas")
+  //           console.log(listaEmpresasCadastradas[0].codigo_ativacao)
+  //         });
+  //       });
+  //     })
+  //     .catch(function (resposta) {
+  //       console.log(`#ERRO: ${resposta}`);
+  //     });
+  // }
 
   // function sumirMensagem() {
   //   cardErro.style.display = "none";
