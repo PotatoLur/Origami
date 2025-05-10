@@ -38,8 +38,9 @@
     <main class="login">
         <div class="caixa">
             <h2>Login</h2>
+            <span id="div_erro"></span>
             <label>Usuário: </label>
-            <input type="text" id="ipt_usuario">
+            <input type="text" id="ipt_nome">
             <label>Senha: </label>
             <div id="senha">
                 <input type="password" id="ipt_senha">
@@ -99,13 +100,11 @@
         const ipt_senha = document.querySelector('#ipt_senha');
         const eye = document.querySelector('#svg_eye');
 
-
         if (ipt_senha.getAttribute('type') == 'password') {
             ipt_senha.setAttribute('type', 'text');
             eye.innerHTML = `<path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
             <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>`;
-        }
-        else {
+        } else {
             ipt_senha.setAttribute('type', 'password');
             eye.innerHTML = `<path d="M13.359 11.238C15.06 9.72 16 8 16 8s-3-5.5-8-5.5a7 7 0 0 0-2.79.588l.77.771A6 6 0 0 1 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755q-.247.248-.517.486z"/>
             <path d="M11.297 9.176a3.5 3.5 0 0 0-4.474-4.474l.823.823a2.5 2.5 0 0 1 2.829 2.829zm-2.943 1.299.822.822a3.5 3.5 0 0 1-4.474-4.474l.823.823a2.5 2.5 0 0 0 2.829 2.829"/>
@@ -114,22 +113,23 @@
     }
 
     function login() {
-        aguardar();
+        // aguardar();
         var logado = false;
-        var usuarioVar = ipt_usuario.value;
+        var nomeVar = ipt_nome.value;
         var senhaVar = ipt_senha.value;
 
-        if (usuarioVar == "" || senhaVar == "") {
+        if (nomeVar == "" || senhaVar == "") {
             cardErro.style.display = "block"
-            mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
-            finalizarAguardar();
+            div_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
+            // finalizarAguardar();
             return false;
         }
         else {
-            setInterval(sumirMensagem, 5000)
+            console.log('sumirMensagem')
+            // setInterval(sumirMensagem, 5000)
         }
 
-        console.log("FORM LOGIN: ", usuarioVar);
+        console.log("FORM LOGIN: ", nomeVar);
         console.log("FORM SENHA: ", senhaVar);
 
         fetch("/usuarios/autenticar", {
@@ -138,15 +138,14 @@
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                usuarioServer: usuarioVar,
+                nomeServer: nomeVar,
                 senhaServer: senhaVar,
             })
         }).then(function (resposta) {
-            console.log("ESTOU NO THEN DO entrar()!")
-
+            console.log("ESTOU NO THEN DO entrar()! login.html")
             if (resposta.ok) {
                 console.log(resposta);
-                logado = sessionStorage.setItem(true);
+                // logado = sessionStorage.setItem(true);
 
                 resposta.json().then(json => {
                     console.log(json);
@@ -168,7 +167,7 @@
 
                 resposta.text().then(texto => {
                     console.error(texto);
-                    finalizarAguardar(texto);
+                    // finalizarAguardar(texto);
                 });
             }
 
@@ -179,8 +178,8 @@
         return false;
     }
 
-    function sumirMensagem() {
-        cardErro.style.display = "none"
-    }
+    // function sumirMensagem() {
+    //     cardErro.style.display = "none"
+    // }
 
 </script>
