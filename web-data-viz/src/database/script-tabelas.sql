@@ -1,3 +1,4 @@
+DROP DATABASE origami;
 CREATE DATABASE origami;
 
 USE origami;
@@ -31,10 +32,10 @@ CREATE TABLE comentario (
 );
 
 INSERT INTO usuario (email, nome, senha) VALUES
-	('joao@email.com', 'joaosilva', 'senha123'),
-	('maria@email.com', 'mariasantos', 'senha456'),
-	('pedro@email.com', 'pedroalves', 'senha789'),
-	('ana@email.com', 'anacarvalho', 'senha321');
+	('joao@email.com', 'joaosilva', 'senha123@'),
+	('maria@email.com', 'mariasantos', 'senha456@'),
+	('pedro@email.com', 'pedroalves', 'senha789@'),
+	('ana@email.com', 'anacarvalho', 'senha321@');
 
 INSERT INTO projeto (id, fkUsuario, nome, tipo, curtida) VALUES
 	(1, 1, 'Tsuru', 'Origami Tradicional', 15),
@@ -54,3 +55,4 @@ INSERT INTO comentario (id, fkProjeto, fkUsuario, comentario) VALUES
 	(8, 2, 4, 'Parabéns pelo trabalho!');
 
 SELECT * FROM projeto;
+SELECT * FROM usuario;
