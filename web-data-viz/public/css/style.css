@@ -329,7 +329,7 @@ header .navbar_direita {
     border: green solid 2px;
 }
 
-.cadastro #div_erro {
+.cadastro span {
     display: hidden;
     font-size: 20px;
     color: red;
@@ -443,6 +443,12 @@ button:hover {
 #navbar_sair {
     display: none;
     align-items: center;
+}
+
+.login span {
+    display: hidden;
+    font-size: 20px;
+    color: red;
 }
 
 /* FOOTER */

@@ -41,10 +41,13 @@
       <span id="div_erro"></span>
       <label>E-mail: </label>
       <input type="text" id="ipt_email">
+      <span id="div_erro_email"></span>
       <label>Usuário: </label>
       <input type="text" id="ipt_nome">
+      <span id="div_erro_nome"></span>
       <label>Senha: </label>
-      <input type="text" id="ipt_senha">
+      <input type="password" id="ipt_senha">
+      <span id="div_erro_senha"></span>
       <div class="com_login">
         <p>Já possui login? <a href="login.html">Fazer login</a></p>
       </div>
@@ -104,22 +107,40 @@
     ) {
       div_erro.style.display = "block";
       div_erro.innerHTML = "Preencher todos os campos.";
-
-      // finalizarAguardar();
       return false;
     } else if (
-      nomeVar.length > 1 &&
-      emailVar.includes('@') &&
-      emailVar.includes('.') &&
-      senhaVar.length > 6
+      !emailVar.includes('@') ||
+      !emailVar.includes('.')
     ) {
       div_erro.style.display = "none";
-    } else {
-      div_erro.style.display = "block";
-      div_erro.innerHTML = "Mensagem de erro, cadastro inválido";
-
-      // finalizarAguardar();
+      div_erro_email.style.display = "block";
+      div_erro_email.innerHTML = "Insira um email válido";
       return false;
+    } else if (
+      nomeVar.length < 6
+    ) {
+      div_erro.style.display = "none";
+      div_erro_email.style.display = "none";
+      div_erro_nome.style.display = "block";
+      div_erro_nome.innerHTML = "Pelo menos 6 dígitos";
+      return false;
+    } else if (
+      senhaVar.length < 6 ||
+      (!senhaVar.includes('@') &&
+      !senhaVar.includes('!') &&
+      !senhaVar.includes('#'))
+    ) {
+      div_erro.style.display = "none";
+      div_erro_email.style.display = "none";
+      div_erro_nome.style.display = "none";
+      div_erro_senha.style.display = "block";
+      div_erro_senha.innerHTML = "Pelo menos 6 dígitos e (!, @ ou #)";
+      return false;
+    } else {
+      div_erro.style.display = "none";
+      div_erro_email.style.display = "none";
+      div_erro_nome.style.display = "none";
+      div_erro_senha.style.display = "none";
     }
 
     // Verificando se o código de ativação é de alguma empresa cadastrada

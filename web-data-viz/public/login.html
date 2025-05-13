@@ -118,14 +118,10 @@
         var senhaVar = ipt_senha.value;
 
         if (nomeVar == "" || senhaVar == "") {
-            cardErro.style.display = "block"
-            div_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
+            div_erro.style.display = "block"
+            div_erro.innerHTML = "Preencher todos os campos";
             // finalizarAguardar();
             return false;
-        }
-        else {
-            console.log('sumirMensagem')
-            // setInterval(sumirMensagem, 5000)
         }
 
         console.log("FORM LOGIN: ", nomeVar);
@@ -160,6 +156,8 @@
                 });
 
             } else {
+                div_erro.style.display = "block"
+                div_erro.innerHTML = "Usuário ou senha incorretos";
 
                 console.log("Houve um erro ao tentar realizar o login!");
 
@@ -175,9 +173,5 @@
 
         return false;
     }
-
-    // function sumirMensagem() {
-    //     cardErro.style.display = "none"
-    // }
 
 </script>
