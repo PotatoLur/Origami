@@ -5,11 +5,11 @@
     padding: 0;
     box-sizing: border-box;
     text-decoration: none;
+    font-family: "Winky Rough", sans-serif;
 }
 
 body {
     font-size: 100%;
-    font-family: "Winky Rough", sans-serif;
 }
 
 :root {
@@ -136,7 +136,6 @@ header .navbar_direita {
     border-radius: 4px;
     font-weight: 700;
     border: green solid 2px;
-    font-family: "Winky Rough", sans-serif;
 }
 
 
@@ -216,7 +215,6 @@ header .navbar_direita {
     border-radius: 4px;
     font-weight: 700;
     border: green solid 2px;
-    font-family: "Winky Rough", sans-serif;
 }
 
 .sem_login .exemplo1 {
@@ -267,7 +265,6 @@ header .navbar_direita {
     width: 28%;
     border-radius: 8px;
     border: black solid 1px;
-    font-family: "Winky Rough", sans-serif;
 }
 
 .com_login #ipt_pesquisar {
@@ -276,7 +273,6 @@ header .navbar_direita {
     height: 30px;
     border-radius: 8px;
     border: black solid 1px;
-    font-family: "Winky Rough", sans-serif;
     text-align: center;
 }
 
@@ -296,7 +292,6 @@ header .navbar_direita {
     flex-direction: column;
     align-items: center;
     font-size: 27px;
-    font-family: "Winky Rough", sans-serif;
 }
 
 .cadastro .caixa {
@@ -322,7 +317,6 @@ header .navbar_direita {
     font-weight: 700;
     border: black solid 1px;
     border-radius: 8px;
-    font-family: "Winky Rough", sans-serif;
 }
 
 .cadastro button {
@@ -333,7 +327,6 @@ header .navbar_direita {
     border-radius: 4px;
     font-weight: 700;
     border: green solid 2px;
-    font-family: "Winky Rough", sans-serif;
 }
 
 .cadastro #div_erro {
@@ -377,7 +370,6 @@ header .navbar_direita {
     font-weight: 700;
     border: black solid 1px;
     border-radius: 8px;
-    font-family: "Winky Rough", sans-serif;
 }
 
 .login #senha {
@@ -407,7 +399,6 @@ header .navbar_direita {
     border-radius: 4px;
     font-weight: 700;
     border: green solid 2px;
-    font-family: "Winky Rough", sans-serif;
 }
 
 .login #login:hover {

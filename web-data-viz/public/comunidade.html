@@ -82,6 +82,7 @@
         <div class="com_login" id="com_login">
             <label>Pesquisar: </label>
             <select name="sel_opcoes" id="sel_opcoes">
+                <option value="todos">Todos</option>
                 <option value="tradicional">Tradicional/Outros</option>
                 <option value="modular">Modular</option>
                 <option value="tessellation">Tessellation</option>
@@ -122,9 +123,8 @@
 </body>
 
 <script>
-    var logado = false;
-    logado = sessionStorage.getItem('logado');
-    if (logado) {
+    var logado = sessionStorage.getItem('logado');
+    if (logado == 'logadoSim') {
         sem_login.style.display = 'none';
         com_login.style.display = 'flex';
         navbar_cadastro.style.display = 'none';
@@ -139,7 +139,8 @@
     const sair = document.querySelector('#navbar_sair');
     document.querySelector('#navbar_sair').onclick = () => {
         alert('Saindo da conta');
-        logado = false;
+        window.location = './index.html';
+        logado = sessionStorage.setItem('logado', 'logadoNao');
     }
 
 </script>
