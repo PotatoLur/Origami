@@ -21,6 +21,9 @@
             <li>
                 <a href="autor.html">Autor</a>
             </li>
+            <li id="navbar_quiz">
+                <a href="quiz.html">Quiz</a>
+            </li>
         </nav>
         <nav class="navbar_direita">
             <li>
@@ -86,8 +89,10 @@
                 <option value="origami3d">Origami 3D</option>
                 <option value="autor">Autor</option>
             </select>
-            <input type="text" id="ipt_pesquisar">
-            <button>🔍</button>
+            <div class="pesquisar">
+                <input type="text" id="ipt_pesquisar">
+                <button onclick="pesquisar()" id="btn_pesquisar">🔍</button>
+            </div>
         </div>
     </main>
 
@@ -127,6 +132,9 @@
         navbar_cadastro.style.display = 'none';
         navbar_login.style.display = 'none';
         navbar_sair.style.display = 'flex';
+        navbar_quiz.style.display = 'block';
+    } else {
+        navbar_quiz.style.display = 'none';
     }
 
     function irParaCadastro() {
@@ -136,8 +144,8 @@
     const sair = document.querySelector('#navbar_sair');
     document.querySelector('#navbar_sair').onclick = () => {
         alert('Saindo da conta');
-        window.location = './index.html';
         logado = sessionStorage.setItem('logado', 'logadoNao');
+        window.location = './index.html';
     }
 
 </script>

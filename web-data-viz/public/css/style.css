@@ -63,6 +63,7 @@ header .navbar_direita {
     flex-direction: row;
     gap: 35px;
     list-style: none;
+    align-items: center;
 }
 
 /* MAIN HISTÓRIA */
@@ -162,6 +163,11 @@ header .navbar_direita {
     border: black solid 5px;
 }
 
+.comunidade #navbar_quiz{
+    display: none;
+}
+
+
 /* MAIN AUTOR */
 .autor {
     height: var(--tamanho_main);
@@ -255,30 +261,41 @@ header .navbar_direita {
 .com_login {
     display: none;
     width: 40%;
-    justify-content: space-around;
+    justify-content: space-between;
+    gap: 2%;
     align-items: center;
 }
 
 .com_login select {
     font-size: 18px;
     height: 30px;
-    width: 28%;
+    width: 40%;
     border-radius: 8px;
     border: black solid 1px;
 }
 
 .com_login #ipt_pesquisar {
     font-size: 18px;
-    width: 40%;
+    width: 50%;
     height: 30px;
     border-radius: 8px;
     border: black solid 1px;
     text-align: center;
 }
 
+.com_login .pesquisar {
+    width: 100%;
+}
+
 .com_login button {
     width: 30px;
     height: 30px;
+    border: black solid 1px;
+    border-radius: 8px;
+}
+
+.login #btn_pesquisar:hover {
+    background-color: grey;
 }
 
 
@@ -402,14 +419,6 @@ header .navbar_direita {
     border: green solid 2px;
 }
 
-.login #login:hover {
-    cursor: pointer;
-    color: black;
-    border: black solid 2px;
-    background: linear-gradient(to right, #86de86, #a0e5a0, #6fcf97);
-    transition: 0.8s;
-}
-
 .login .sem_cadastro {
     display: flex;
     flex-direction: column;
@@ -433,12 +442,42 @@ header .navbar_direita {
     text-decoration: underline;
 }
 
-button:hover {
+.login #login:hover {
     cursor: pointer;
     color: black;
     border: black solid 2px;
     background: linear-gradient(to right, #86de86, #a0e5a0, #6fcf97);
     transition: 0.8s;
+}
+
+.cadastro button:hover {
+    cursor: pointer;
+    color: black;
+    border: black solid 2px;
+    background: linear-gradient(to right, #86de86, #a0e5a0, #6fcf97);
+    transition: 0.8s;
+}
+
+.historia button:hover {
+    cursor: pointer;
+    color: black;
+    border: black solid 2px;
+    background: linear-gradient(to right, #86de86, #a0e5a0, #6fcf97);
+    transition: 0.8s;
+}
+
+.comunidade button:hover {
+    cursor: pointer;
+    color: black;
+    border: black solid 2px;
+    background: linear-gradient(to right, #86de86, #a0e5a0, #6fcf97);
+    transition: 0.8s;
+}
+
+.comunidade #btn_pesquisar:hover {
+    cursor: pointer;
+    border: black solid 1px;
+    background: #b8b6b6;
 }
 
 #navbar_sair {
@@ -452,12 +491,149 @@ button:hover {
     color: red;
 }
 
-.dash {
-    height: 80vh;
-    /* background: linear-gradient(to bottom right, #a0e5a0, #4ca64c); */
-    /* background: linear-gradient(to bottom right,#4ca64c,#a0e5a0,#83ee83,#a0e5a0,#4ca64c); */
-    background: linear-gradient(to bottom right, #b7dfb7, #a0e5a0, #6fcf97, #4ca64c);
 
+/* QUIZ */
+:root {
+    --primary-brand-color: black;
+    --success: #198754;
+    --success-dark: #095c36;
+    --success-light: #c5fce2;
+    --warning: #ffc107;
+    --warning-dark: #705400;
+    --warning-light: #fdebb3;
+    --danger: #dc3545;
+    --danger-dark: #990c19;
+    --danger-light: #f0c1c6;
+    --new-gray: #CCCCCC;
+    --new-black: #212427;
+    --new-white: #E8E8E8;
+}
+
+.quiz {
+    height: calc(100vh - var(--tamanho_header));
+    background: linear-gradient(to right, #86de86, #a0e5a0, #6fcf97);
+    padding: 20px 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 27px;
+    justify-content: center;
+}
+
+.quiz #inicioDoQuiz {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    align-items: center;
+    width: 60%;
+    gap: 25px;
+}
+
+.quiz #jogo {
+    font-size: 30px;
+    gap: 8px;
+}
+
+.quiz #pontuacao {
+    font-size: 30px;
+    gap: 8px;
+}
+
+.quiz #botoes {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.quiz button {
+    font-size: 25px;
+    padding: 2px;
+    background-color: white;
+    border-radius: 8px;
+    border: black solid 1px;
+    text-align: center;
+}
+
+.quiz #btnIniciarQuiz {
+    font-size: 50px;
+    padding: 10px 15px;
+    background-color: white;
+    border-radius: 25px;
+    font-weight: 700;
+    border: black solid 2px;
+}
+
+.quiz button:hover {
+    cursor: pointer;
+    background-color: #b8b6b6;
+    transition: 0.8s;
+}
+
+.quiz #btnIniciarQuiz:hover {
+    cursor: pointer;
+    background-color: #b8b6b6;
+    transition: 0.8s;
+}
+
+.quiz #div_erro {
+    color: red;
+    align-self: center;
+    font-size: 22px;
+}
+
+.quiz #infoQuestao {
+    font-size: 40px;
+}
+
+.quiz #pontuacao {
+    display: none;
+}
+
+.quiz #jogo {
+    display: none;
+    width: 35%;
+}
+
+.quiz #btnConcluir {
+    display: none;
+}
+
+.quiz .flex-colunar {
+    display: flex;
+    flex-direction: column;
+}
+
+.quiz .width-fit-content {
+    width: fit-content;
+}
+
+.quiz .border {
+    border: 3px solid var(--primary-brand-color);
+    border-radius: 25px;
+    padding: 25px;
+}
+
+.quiz .text-bold {
+    font-weight: bold;
+}
+
+.quiz .text-success-with-bg {
+    color: var(--success-dark);
+    background-color: var(--success-light);
+}
+
+.quiz .text-warning-with-bg {
+    color: var(--warning-dark);
+    background-color: var(--warning-light);
+}
+
+.quiz .text-danger-with-bg {
+    color: var(--danger-dark);
+    background-color: var(--danger-light);
+}
+
+.quiz .text-new-gray {
+    color: var(--new-gray);
 }
 
 /* FOOTER */

@@ -21,13 +21,19 @@
             <li>
                 <a href="autor.html">Autor</a>
             </li>
+            <li id="navbar_quiz">
+                <a href="quiz.html">Quiz</a>
+            </li>
         </nav>
         <nav class="navbar_direita">
             <li>
-                <a href="cadastro.html">Cadastro</a>
+                <a href="" id="navbar_sair">Sair</a>
             </li>
             <li>
-                <a href="login.html">Login</a>
+                <a href="cadastro.html" id="navbar_cadastro">Cadastro</a>
+            </li>
+            <li>
+                <a href="login.html" id="navbar_login">Login</a>
             </li>
         </nav>
     </header>
@@ -141,6 +147,23 @@
 <script>
     function irParaCadastro() {
         window.location = './cadastro.html';
+    }
+
+    var logado = sessionStorage.getItem('logado');
+    if (logado == 'logadoSim') {
+        navbar_cadastro.style.display = 'none';
+        navbar_login.style.display = 'none';
+        navbar_sair.style.display = 'flex';
+        navbar_quiz.style.display = 'block';
+    } else {
+        navbar_quiz.style.display = 'none';
+    }
+
+    const sair = document.querySelector('#navbar_sair');
+    document.querySelector('#navbar_sair').onclick = () => {
+        alert('Saindo da conta');
+        window.location = './index.html';
+        logado = sessionStorage.setItem('logado', 'logadoNao');
     }
 </script>
 
