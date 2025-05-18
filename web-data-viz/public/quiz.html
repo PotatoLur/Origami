@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplo - Quiz</title>
+    <link rel="stylesheet" href="./css/style.css">
+</head>
+
+
+<body>
+    <header>
+        <nav class="navbar_esquerda">
+            <a href="index.html"><img class="logo" src="./img/logo.png" alt="logo"></a>
+            <li>
+                <a href="index.html">História</a>
+            </li>
+            <li>
+                <a href="comunidade.html">Comunidade</a>
+            </li>
+            <li>
+                <a href="autor.html">Autor</a>
+            </li>
+            <li class="agora" id="navbar_quiz">
+                <a href="quiz.html">Quiz</a>
+            </li>
+        </nav>
+        <nav class="navbar_direita">
+            <li>
+                <a href="" id="navbar_sair">Sair</a>
+            </li>
+            <li>
+                <a href="cadastro.html" id="navbar_cadastro">Cadastro</a>
+            </li>
+            <li>
+                <a href="login.html" id="navbar_login">Login</a>
+            </li>
+        </nav>
+    </header>
+
+    <main class="quiz">
+        <div id="inicioDoQuiz" class="border">
+            <h3>Seja muito bem-vindo ao quiz!</h3>
+            <h3>Aqui teremos algumas perguntas básicas sobre origami e no final você pode deixar uma pequena avaliação
+                sobre o site.</h3>
+            <h3>Espero que você goste!</h3>
+            <button id="btnIniciarQuiz" onclick="iniciarQuiz()">INICIAR QUIZ</button>
+        </div>
+
+        <div id="pontuacao" class="flex-colunar width-fit-content border">
+            <span class="width-fit-content">Quantidade de acertos: <span id="spanCertas"></span></span>
+            <span class="width-fit-content">Quantidade de erros: <span id="spanErradas"></span></span>
+            <span id="pontuacaoFinal" class="width-fit-content">Pontuação Final: <span
+                    id="spanPontuacaoFinal"></span></span>
+            <span id="msgFinal" class="width-fit-content"></span>
+            <button onclick="tentarNovamente()" id="btnTentarNovamente">Tentar novamente</button>
+        </div>
+
+        <div id="jogo" class="width-fit-content flex-colunar border">
+
+            <div id="infoQuestao" class="padding-8">
+                <span>Questão <span id="spanNumeroDaQuestaoAtual"></span>:</span>
+            </div>
+
+            <div id="perguntaDaQuestaoAtual" class="padding-8">
+                <span id="spanQuestaoExibida" class="text-bold"></span>
+            </div>
+
+            <div id="opcoes" class="flex-colunar padding-8">
+                <span>
+                    <input type="radio" id="primeiraOpcao" name="option" class="radio" value="alternativaA" />
+                    <label for="primeiraOpcao" class="option" id="labelOpcaoUm"></label>
+                </span>
+                <span>
+                    <input type="radio" id="segundaOpcao" name="option" class="radio" value="alternativaB" />
+                    <label for="segundaOpcao" class="option" id="labelOpcaoDois"></label>
+                </span>
+                <span>
+                    <input type="radio" id="terceiraOpcao" name="option" class="radio" value="alternativaC" />
+                    <label for="terceiraOpcao" class="option" id="labelOpcaoTres"></label>
+                </span>
+                <span>
+                    <input type="radio" id="quartaOpcao" name="option" class="radio" value="alternativaD" />
+                    <label for="quartaOpcao" class="option" id="labelOpcaoQuatro"></label>
+                </span>
+            </div>
+
+            <div id="botoes" class="flex-colunar padding-8">
+                <div id="div_erro"></div>
+                <button onclick="submeter()" id="btnSubmeter">Submeter resposta</button>
+                <button onclick="avancar()" id="btnProx" disabled>Avançar para próxima questão</button>
+                <button onclick="avancar()" id="btnConcluir" disabled>Concluir quiz</button>
+            </div>
+
+        </div>
+    </main>
+
+</body>
+
+</html>
+
+<script>
+    var logado = sessionStorage.getItem('logado');
+    if (logado == 'logadoSim') {
+        navbar_cadastro.style.display = 'none';
+        navbar_login.style.display = 'none';
+        navbar_sair.style.display = 'flex';
+        navbar_quiz.style.display = 'block';
+    } else {
+        navbar_quiz.style.display = 'none';
+    }
+
+    const sair = document.querySelector('#navbar_sair');
+    document.querySelector('#navbar_sair').onclick = () => {
+        alert('Saindo da conta');
+        logado = sessionStorage.setItem('logado', 'logadoNao');
+        window.location = './index.html';
+    }
+</script>
+
+<script>
+    const listaDeQuestoes = [
+
+        {
+            pergunta: "Qual é o tamanho padrão de uma folha A4?",
+            alternativaA: "210 mm x 300 mm",
+            alternativaB: "215 mm x 295 mm",
+            alternativaC: "210 mm x 297 mm",
+            alternativaD: "220 mm x 300 mm",
+            alternativaCorreta: "alternativaC"
+        },
+
+        {
+            pergunta: "O que significa a palavra origami?",
+            alternativaA: "Papel colorido",
+            alternativaB: "Arte em papel",
+            alternativaC: "Escultura japonesa",
+            alternativaD: "Dobrar papel",
+            alternativaCorreta: "alternativaD"
+        },
+
+        {
+            pergunta: "Qual é o formato mais comum de papel usado no origami tradicional?",
+            alternativaA: "Quadrado",
+            alternativaB: "Retangular",
+            alternativaC: "Círcular",
+            alternativaD: "Triangular",
+            alternativaCorreta: "alternativaA"
+        },
+
+        {
+            pergunta: "Qual desses animais é um modelo clássico do origami?",
+            alternativaA: "Panda",
+            alternativaB: "Sapo",
+            alternativaC: "Tsuru",
+            alternativaD: "Peixe",
+            alternativaCorreta: "alternativaC"
+        },
+
+        {
+            pergunta: "Quantos tsurus, segundo a lenda japonesa, garantem um desejo?",
+            alternativaA: "10",
+            alternativaB: "100",
+            alternativaC: "1.000",
+            alternativaD: "10.000",
+            alternativaCorreta: "alternativaC"
+        },
+
+        {
+            pergunta: "Nota de avaliação do site",
+            alternativaA: "Ruim",
+            alternativaB: "Mediano",
+            alternativaC: "Bom",
+            alternativaD: "Ótimo",
+            alternativaCorreta: "Avaliar"
+        }
+
+
+    ]
+
+    // variáveis globais    
+    let numeroDaQuestaoAtual = 0
+    let pontuacaoFinal = 0
+    let tentativaIncorreta = 0
+    let certas = 0
+    let erradas = 0
+    let quantidadeDeQuestoes = listaDeQuestoes.length
+    document.getElementById("spanCertas").innerHTML = certas
+    document.getElementById("spanErradas").innerHTML = erradas
+    // let isUltima = numeroDaQuestaoAtual == quantidadeDeQuestoes-1 ? true : false
+
+    function iniciarQuiz() {
+        document.getElementById('jogo').style.display = "flex"
+        document.getElementById('btnIniciarQuiz').style.display = "none"
+        document.getElementById('inicioDoQuiz').style.display = "none"
+
+
+        preencherHTMLcomQuestaoAtual(0)
+
+        btnSubmeter.disabled = false
+        btnProx.disabled = true
+        btnConcluir.disabled = true
+    }
+
+    function preencherHTMLcomQuestaoAtual(index) {
+        habilitarAlternativas(true)
+        const questaoAtual = listaDeQuestoes[index]
+        numeroDaQuestaoAtual = index
+        console.log("questaoAtual")
+        console.log(questaoAtual)
+        document.getElementById("spanNumeroDaQuestaoAtual").innerHTML = Number(index) + 1 // ajustando porque o index começa em 0
+        document.getElementById("spanQuestaoExibida").innerHTML = questaoAtual.pergunta;
+        document.getElementById("labelOpcaoUm").innerHTML = questaoAtual.alternativaA;
+        document.getElementById("labelOpcaoDois").innerHTML = questaoAtual.alternativaB;
+        document.getElementById("labelOpcaoTres").innerHTML = questaoAtual.alternativaC;
+        document.getElementById("labelOpcaoQuatro").innerHTML = questaoAtual.alternativaD;
+    }
+
+    function submeter() {
+        const options = document.getElementsByName("option"); // recupera alternativas no html
+
+        let hasChecked = false
+        for (let i = 0; i < options.length; i++) {
+            if (options[i].checked) {
+                hasChecked = true
+                break
+            }
+        }
+
+        if (!hasChecked) {
+            div_erro.style.display = 'block'
+            div_erro.innerHTML = "Escolher uma das alternativas.";
+        } else {
+            btnSubmeter.disabled = true
+            btnProx.disabled = false
+            btnConcluir.disabled = false
+            div_erro.style.display = 'none'
+
+            habilitarAlternativas(false)
+
+            checarResposta()
+        }
+    }
+
+    function habilitarAlternativas(trueOrFalse) {
+        let opcaoEscolhida = trueOrFalse ? false : true
+
+        primeiraOpcao.disabled = opcaoEscolhida
+        segundaOpcao.disabled = opcaoEscolhida
+        terceiraOpcao.disabled = opcaoEscolhida
+        quartaOpcao.disabled = opcaoEscolhida
+
+    }
+
+    function avancar() {
+        btnSubmeter.disabled = false
+        btnProx.disabled = true
+        btnConcluir.disabled = true
+
+        desmarcarRadioButtons()
+
+        if (numeroDaQuestaoAtual < quantidadeDeQuestoes - 1) {
+            preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual)
+        } else if (numeroDaQuestaoAtual == quantidadeDeQuestoes - 1) {
+            btnProx.style.display = 'none';
+            btnConcluir.style.display = 'block';
+            preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual)
+        } else {
+            finalizarJogo()
+        }
+        limparCoresBackgroundOpcoes()
+    }
+
+    function tentarNovamente() {
+        // atualiza a página
+        window.location.reload()
+    }
+
+    function checarResposta() {
+        const questaoAtual = listaDeQuestoes[numeroDaQuestaoAtual] // questão atual 
+        const respostaQuestaoAtual = questaoAtual.alternativaCorreta // qual é a resposta correta da questão atual
+
+        if (respostaQuestaoAtual == 'Avaliar') {
+            numeroDaQuestaoAtual++
+            return;
+        }
+
+        const options = document.getElementsByName("option"); // recupera alternativas no html
+
+        let alternativaCorreta = null // variável para armazenar a alternativa correta
+
+        options.forEach((option) => {
+            if (option.value === respostaQuestaoAtual) {
+                console.log("alternativaCorreta está no componente: " + alternativaCorreta)
+                alternativaCorreta = option.labels[0].id
+            }
+        })
+
+        // verifica se resposta assinalada é correta
+        options.forEach((option) => {
+            if (option.checked === true && option.value === respostaQuestaoAtual) {
+                document.getElementById(alternativaCorreta).classList.add("text-success-with-bg")
+                pontuacaoFinal++
+                certas++
+                document.getElementById("spanCertas").innerHTML = certas
+                numeroDaQuestaoAtual++
+            } else if (option.checked && option.value !== respostaQuestaoAtual) {
+                const wrongLabelId = option.labels[0].id
+
+                document.getElementById(wrongLabelId).classList.add("text-danger-with-bg")
+                document.getElementById(alternativaCorreta).classList.add("text-success-with-bg")
+                tentativaIncorreta++
+                erradas++
+                document.getElementById("spanErradas").innerHTML = erradas
+                numeroDaQuestaoAtual++
+            }
+        })
+    }
+
+    function limparCoresBackgroundOpcoes() {
+        const options = document.getElementsByName("option");
+        options.forEach((option) => {
+            document.getElementById(option.labels[0].id).classList.remove("text-danger-with-bg")
+            document.getElementById(option.labels[0].id).classList.remove("text-success-with-bg")
+        })
+    }
+
+    function desmarcarRadioButtons() {
+        const options = document.getElementsByName("option");
+        for (let i = 0; i < options.length; i++) {
+            options[i].checked = false;
+        }
+    }
+
+    function finalizarJogo() {
+        let textoParaMensagemFinal = null
+        let classComCoresParaMensagemFinal = null
+        const porcentagemFinalDeAcertos = pontuacaoFinal / (quantidadeDeQuestoes - 1)
+        document.getElementById('pontuacao').style.display = "flex"
+        document.getElementById('jogo').style.display = "none"
+
+        if (porcentagemFinalDeAcertos <= 0.3) {
+            textoParaMensagemFinal = "Vamos estudar mais sobre origami."
+            classComCoresParaMensagemFinal = "text-danger-with-bg"
+        }
+        else if (porcentagemFinalDeAcertos > 0.3 && porcentagemFinalDeAcertos < 0.9) {
+            textoParaMensagemFinal = "Ainda da para melhorar."
+            classComCoresParaMensagemFinal = "text-warning-with-bg"
+        }
+        else if (porcentagemFinalDeAcertos >= 0.9) {
+            textoParaMensagemFinal = "Parabéns!"
+            classComCoresParaMensagemFinal = "text-success-with-bg"
+        }
+
+        textoParaMensagemFinal += "<br> Você acertou " + Math.round((porcentagemFinalDeAcertos) * 100) + "% das questões."
+
+
+        document.getElementById('msgFinal').innerHTML = textoParaMensagemFinal
+        document.getElementById('msgFinal').classList.add(classComCoresParaMensagemFinal)
+        document.getElementById('spanPontuacaoFinal').innerHTML = pontuacaoFinal
+
+        document.getElementById('jogo').classList.add("text-new-gray")
+
+        btnProx.disabled = true
+        btnSubmeter.disabled = true
+        btnConcluir.disabled = true
+
+    }
+</script>
