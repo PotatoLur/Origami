@@ -111,11 +111,10 @@
         navbar_quiz.style.display = 'none';
     }
 
-    const sair = document.querySelector('#navbar_sair');
-    document.querySelector('#navbar_sair').onclick = () => {
-        alert('Saindo da conta');
-        logado = sessionStorage.setItem('logado', 'logadoNao');
-        window.location = './index.html';
+    document.querySelector('#navbar_sair').onclick = (e) => {
+        e.preventDefault();
+        sessionStorage.setItem('logado', 'logadoNao');
+        window.location.href = './index.html';
     }
 </script>
 

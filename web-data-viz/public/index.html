@@ -105,7 +105,7 @@
             </div>
             <img class="main_img" src="./img/deBugger.jpeg" alt="">
         </div>
-        <div class="diferente_tipo">
+        <div class="diferente_tipo" id="cadastrarOrigamiWorld">
             <h2>Origami World</h2>
             <p>Aqui você vai encontrar todos esses estilos de origami reunidos em um só lugar, com criações incríveis de
                 pessoas apaixonadas pela arte de dobrar papel. Explore, descubra, inspire-se e compartilhe suas próprias
@@ -133,8 +133,9 @@
             <h6>Mais informações</h6>
             <a href="comunidade.html">Comunidade</a>
             <a href="autor.html">Autor</a>
-            <a href="cadastro.html">Cadastro</a>
-            <a href="login.html">Login</a>
+            <a href="quiz.html">Quiz</a>
+            <a href="cadastro.html" id="footer_cadastro">Cadastro</a>
+            <a href="login.html" id="footer_login">Login</a>
         </div>
         <div class="footer_contato">
             <h6>Contato</h6>
@@ -155,15 +156,17 @@
         navbar_login.style.display = 'none';
         navbar_sair.style.display = 'flex';
         navbar_quiz.style.display = 'block';
+        footer_cadastro.style.display = 'none';
+        footer_login.style.display = 'none';
+        cadastrarOrigamiWorld.style.display = 'none';
     } else {
         navbar_quiz.style.display = 'none';
     }
 
-    const sair = document.querySelector('#navbar_sair');
-    document.querySelector('#navbar_sair').onclick = () => {
-        alert('Saindo da conta');
-        window.location = './index.html';
-        logado = sessionStorage.setItem('logado', 'logadoNao');
+    document.querySelector('#navbar_sair').onclick = (e) => {
+        e.preventDefault();
+        sessionStorage.setItem('logado', 'logadoNao');
+        window.location.href = './login.html';
     }
 </script>
 

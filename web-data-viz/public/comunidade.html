@@ -47,7 +47,7 @@
                 <p>Se cadastre para ver mais:</p>
                 <button onclick="irParaCadastro()">Cadastrar</button>
             </div>
-            <div class="exemplo1">
+            <div class="exemplo">
                 <img class="comunidade_img" src="./img/cisne3d.jpeg" alt="">
                 <div class="texto">
                     <p>Autor: Guilherme Aoki</p>
@@ -56,7 +56,7 @@
                     <p>Descrição: Inspirado por VeronicaFlavor (Youtube).</p>
                 </div>
             </div>
-            <div class="exemplo2">
+            <div class="exemplo">
                 <div class="texto">
                     <p>Autor: Guilherme Aoki</p>
                     <p>Tipo: Tradicional/Outros</p>
@@ -80,18 +80,71 @@
             </div>
         </div>
         <div class="com_login" id="com_login">
-            <label>Pesquisar: </label>
-            <select name="sel_opcoes" id="sel_opcoes">
-                <option value="todos">Todos</option>
-                <option value="tradicional">Tradicional/Outros</option>
-                <option value="modular">Modular</option>
-                <option value="tessellation">Tessellation</option>
-                <option value="origami3d">Origami 3D</option>
-                <option value="autor">Autor</option>
-            </select>
-            <div class="pesquisar">
-                <input type="text" id="ipt_pesquisar">
-                <button onclick="pesquisar()" id="btn_pesquisar">🔍</button>
+            <div class="comeco">
+                <label>Pesquisar: </label>
+                <select name="sel_opcoes" id="sel_opcoes">
+                    <option value="todos">Todos</option>
+                    <option value="tradicional">Tradicional/Outros</option>
+                    <option value="modular">Modular</option>
+                    <option value="tessellation">Tessellation</option>
+                    <option value="origami3d">Origami 3D</option>
+                    <option value="autor">Autor</option>
+                </select>
+                <div class="pesquisar">
+                    <input type="text" id="ipt_pesquisar">
+                    <button onclick="pesquisar()" id="btn_pesquisar">🔍</button>
+                </div>
+            </div>
+            <div class="exemplo">
+                <img class="comunidade_img" src="./img/cisne3d.jpeg" alt="">
+                <div class="postagem">
+                    <div class="topo_postagem">
+                        <div class="texto">
+                            <p>Autor: Guilherme Aoki</p>
+                            <p>Tipo: Origami 3D</p>
+                            <p>Nome: 3D Origami Swan</p>
+                        </div>
+                        <div class="texto">
+                            <p>Descrição: Inspirado por VeronicaFlavor (Youtube).</p>
+                        </div>
+                    </div>
+                    <div class="area_comentario">
+                        <div class="comentario">
+                            
+                        </div>
+                        <div class="interacao_comentario">
+                            <div class="curtir">
+                                <button></button>
+                            </div>
+                            <div class="input_comentario">
+                                <input type="text" id="comentario">
+                                <div class="enviar">
+                                    <button></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="exemplo">
+                <div class="postagem">
+                    <div class="topo_postagem">
+                        <div class="texto">
+                            <p>Autor: Guilherme Aoki</p>
+                            <p>Tipo: Tradicional/Outros</p>
+                            <p>Nome: Polygonal Cubes and Stars</p>
+                        </div>
+                        <div class="texto">
+                            <p>Descrição: Inspirado por @Artbeats_diary (Instagram).</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="slides">
+                    <div class="comunidade_img">
+                        <img src="./img/origami_pequeno1.jpeg" alt="">
+                        <img src="./img/origami_pequeno2.jpeg" alt="">
+                    </div>
+                </div>
             </div>
         </div>
     </main>
@@ -113,8 +166,8 @@
             <h6>Mais informações</h6>
             <a href="index.html">História</a>
             <a href="autor.html">Autor</a>
-            <a href="cadastro.html">Cadastro</a>
-            <a href="login.html">Login</a>
+            <a href="cadastro.html" id="footer_cadastro">Cadastro</a>
+            <a href="login.html" id="footer_login">Login</a>
         </div>
         <div class="footer_contato">
             <h6>Contato</h6>
@@ -133,6 +186,8 @@
         navbar_login.style.display = 'none';
         navbar_sair.style.display = 'flex';
         navbar_quiz.style.display = 'block';
+        footer_cadastro.style.display = 'none';
+        footer_login.style.display = 'none';
     } else {
         navbar_quiz.style.display = 'none';
     }
@@ -141,11 +196,10 @@
         window.location = './cadastro.html';
     }
 
-    const sair = document.querySelector('#navbar_sair');
-    document.querySelector('#navbar_sair').onclick = () => {
-        alert('Saindo da conta');
-        logado = sessionStorage.setItem('logado', 'logadoNao');
-        window.location = './index.html';
+    document.querySelector('#navbar_sair').onclick = (e) => {
+        e.preventDefault();
+        sessionStorage.setItem('logado', 'logadoNao');
+        window.location.href = './index.html';
     }
 
 </script>
