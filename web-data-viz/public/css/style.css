@@ -150,7 +150,7 @@ header .navbar_direita {
     flex-direction: column;
     align-items: center;
     font-size: 25px;
-    gap: 40px;
+    gap: 20px;
 }
 
 .comunidade h1 {
@@ -325,15 +325,20 @@ header .navbar_direita {
 }
 
 .com_login .exemplo .postagem .area_comentario .comentario {
+    background-color: rgba(255, 255, 255, 0.74);
     padding: 10px;
     height: 80%;
+    border: black solid 1px;
+    font-size: 20px;
+    max-height: 319px;
+    overflow-y: auto;
 }
 
 .com_login .exemplo .postagem .area_comentario .interacao_comentario {
     display: flex;
     flex-direction: row;
     padding: 10px;
-    border-top: black solid 2px;
+    border: black solid 1px;
     height: 20%;
     align-items: center;
     gap: 10px;
@@ -352,6 +357,11 @@ header .navbar_direita {
     width: 50px;
 }
 
+.com_login .exemplo .postagem .area_comentario .interacao_comentario button:hover {
+    background-color: #84e0fc;
+    transition: 0.5s;
+}
+
 .com_login .exemplo .postagem .area_comentario .interacao_comentario .input_comentario {
     display: flex;
     align-items: center;
@@ -366,6 +376,7 @@ header .navbar_direita {
     width: 100%;
     border-radius: 20px;
     padding: 10px;
+    font-size: 20px;
 }
 
 .com_login .exemplo .postagem .area_comentario .interacao_comentario .input_comentario .enviar button {
@@ -645,6 +656,11 @@ header .navbar_direita {
     border: black solid 2px;
 }
 
+.quiz #btnVerEstatisticas {
+    padding: 5px 10px;
+    font-weight: 700;
+}
+
 .quiz button:hover {
     cursor: pointer;
     background-color: #b8b6b6;
@@ -716,6 +732,40 @@ header .navbar_direita {
 
 .quiz .text-new-gray {
     color: var(--new-gray);
+}
+
+.quiz .grafico {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 150px;
+    margin-top: 25px;
+    padding: 30px;
+    background-color: #ffffffbd;
+    border-radius: 30px;
+}
+
+.quiz .grafico .graficoPizza {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 350px;
+}
+
+.quiz .grafico .graficoPizza p {
+    font-size: 30px;
+}
+
+.quiz .estatisticas {
+    display: none;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.quiz .estatisticas #btnVoltar {
+    align-self: center;
+    width: 20%;
 }
 
 /* FOOTER */

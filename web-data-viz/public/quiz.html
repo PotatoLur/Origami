@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Exemplo - Quiz</title>
     <link rel="stylesheet" href="./css/style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 
@@ -46,6 +47,7 @@
                 sobre o site.</h3>
             <h3>Espero que você goste!</h3>
             <button id="btnIniciarQuiz" onclick="iniciarQuiz()">INICIAR QUIZ</button>
+            <button id="btnVerEstatisticas" onclick="verEstatisticas()">Ver estatísticas</button>
         </div>
 
         <div id="pontuacao" class="flex-colunar width-fit-content border">
@@ -94,6 +96,19 @@
             </div>
 
         </div>
+        <div class="estatisticas" id="estatisticas">
+            <div class="grafico" id="grafico">
+                <div class="graficoPizza">
+                    <p>Histórico do Quiz:</p>
+                    <canvas id="graficoBarra"></canvas>
+                </div>
+                <div class="graficoPizza">
+                    <p>Seus Projetos:</p>
+                    <canvas id="graficoPizza"></canvas>
+                </div>
+            </div>
+            <button onclick="tentarNovamente()" id="btnVoltar">Voltar</button>
+        </div>
     </main>
 
 </body>
@@ -116,9 +131,7 @@
         sessionStorage.setItem('logado', 'logadoNao');
         window.location.href = './index.html';
     }
-</script>
 
-<script>
     const listaDeQuestoes = [
 
         {
@@ -276,18 +289,28 @@
         window.location.reload()
     }
 
+    let avaliacaoFinal = null;
+
     function checarResposta() {
         const questaoAtual = listaDeQuestoes[numeroDaQuestaoAtual] // questão atual 
         const respostaQuestaoAtual = questaoAtual.alternativaCorreta // qual é a resposta correta da questão atual
 
         if (respostaQuestaoAtual == 'Avaliar') {
-            numeroDaQuestaoAtual++
+            numeroDaQuestaoAtual++;
+            const options = document.getElementsByName("option");
+            options.forEach((option) => {
+                if (option.checked) {
+                    avaliacaoFinal = option.nextElementSibling.textContent.trim();
+
+                    console.log("Avaliação selecionada:", avaliacaoFinal);
+                }
+            });
             return;
         }
 
         const options = document.getElementsByName("option"); // recupera alternativas no html
 
-        let alternativaCorreta = null // variável para armazenar a alternativa correta
+        let alternativaCorreta = null
 
         options.forEach((option) => {
             if (option.value === respostaQuestaoAtual) {
@@ -359,11 +382,217 @@
         document.getElementById('msgFinal').classList.add(classComCoresParaMensagemFinal)
         document.getElementById('spanPontuacaoFinal').innerHTML = pontuacaoFinal
 
-        document.getElementById('jogo').classList.add("text-new-gray")
+        cadastrarResultadoQuiz(pontuacaoFinal)
+    }
 
-        btnProx.disabled = true
-        btnSubmeter.disabled = true
-        btnConcluir.disabled = true
+    function cadastrarResultadoQuiz(pontuacaoFinal) {
+        const nomeUsuario = sessionStorage.getItem('NOME_USUARIO');
+        console.log(pontuacaoFinal)
+        console.log(avaliacaoFinal)
+        console.log(nomeUsuario)
 
+        fetch("/quiz/cadastrar", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                pontuacao: pontuacaoFinal,
+                avaliacao: avaliacaoFinal,
+                userName: nomeUsuario,
+            })
+        })
+            .then(resposta => {
+                if (!resposta.ok) {
+                    return resposta.json().then(err => { throw err; });
+                }
+                return resposta.json();
+            })
+            .then(data => {
+                console.log("Dados salvos:", data);
+                carregarGraficoBarra();
+                carregarGraficoPizza();
+                estatisticas.style.display = 'flex';
+                btnVoltar.style.display = 'none';
+            })
+            .catch(error => console.error("Erro:", error.message || error));
+    }
+
+    function carregarGraficoBarra() {
+        const nomeUsuario = sessionStorage.getItem('NOME_USUARIO');
+        fetch(`/quiz/listarBarra/${nomeUsuario}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(function (resposta) {
+                return resposta.json();
+            })
+            .then(function (dados) {
+                plotarGraficoBarra(dados);
+            })
+            .catch(function (err) {
+                console.log(err);
+            })
+    }
+
+    function carregarGraficoPizza() {
+        const nomeUsuario = sessionStorage.getItem('NOME_USUARIO');
+        fetch(`/quiz/listarPizza/${nomeUsuario}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(function (resposta) {
+                return resposta.json();
+            })
+            .then(function (dados) {
+                plotarGraficoPizza(dados);
+            })
+            .catch(function (err) {
+                console.log(err);
+            })
+    }
+
+    function plotarGraficoBarra(dados) {
+        var pontuacao = [];
+        var tentativa = [];
+
+        for (var i = 0; i < dados.length; i++) {
+            pontuacao.push(dados[i].pontuacao);
+            tentativa.push(i + 1);
+        }
+
+        var ctx = document.getElementById('graficoBarra').getContext('2d');
+
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: tentativa,
+                datasets: [{
+                    label: 'Pontuação',
+                    data: pontuacao,
+                    backgroundColor: '#81c784',
+                    borderColor: '#2e7d32',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#1b5e20',
+                            font: {
+                                family: 'Winky Rough',
+                                size: 14,
+                                weight: 'bold'
+                            }
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: '#e8f5e9',
+                        titleColor: '#1b5e20',
+                        bodyColor: '#2e7d32',
+                        borderColor: '#a5d6a7',
+                        borderWidth: 1,
+                    }
+                },
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Tentativa',
+                            color: '#1b5e20',
+                            font: {
+                                family: 'Winky Rough',
+                                size: 12,
+                                weight: 'bold'
+                            }
+                        },
+                        ticks: { color: '#1b5e20' },
+                        grid: { color: '#c8e6c9' }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: 'Pontuação',
+                            color: '#1b5e20',
+                            font: {
+                                family: 'Winky Rough',
+                                size: 12,
+                                weight: 'bold'
+                            }
+                        },
+                        ticks: { color: '#1b5e20' },
+                        grid: { color: '#c8e6c9' }
+                    }
+                }
+            }
+        });
+    }
+
+    function plotarGraficoPizza(dados) {
+        var tipo = [];
+        var quantidade_projeto = [];
+        console.log(dados)
+
+        for (var i = 0; i < dados.length; i++) {
+            quantidade_projeto.push(dados[i].quantidade_projeto);
+            tipo.push(dados[i].tipo);
+        }
+
+        var ctx = document.getElementById('graficoPizza').getContext('2d');
+
+        var myChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: tipo,
+                datasets: [{
+                    label: 'Tipos de Origami',
+                    data: quantidade_projeto,
+                    backgroundColor: [
+                        '#81c784',
+                        '#4db6ac',
+                        '#ffcc80',
+                        '#f48fb1',
+                    ],
+                    borderColor: '#2e7d32',
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                        labels: {
+                            color: '#1b5e20',
+                            font: {
+                                family: 'Winky Rough',
+                                size: 14,
+                                weight: 'bold'
+                            }
+                        }
+                    },
+                    tooltip: {
+                        backgroundColor: '#e8f5e9',
+                        titleColor: '#1b5e20',
+                        bodyColor: '#2e7d32',
+                        borderColor: '#a5d6a7',
+                        borderWidth: 1
+                    }
+                }
+            }
+        });
+    }
+
+    function verEstatisticas() {
+        inicioDoQuiz.style.display = 'none';
+        carregarGraficoBarra();
+        carregarGraficoPizza();
+        estatisticas.style.display = 'flex';
     }
 </script>

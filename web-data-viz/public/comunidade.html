@@ -109,17 +109,17 @@
                         </div>
                     </div>
                     <div class="area_comentario">
-                        <div class="comentario">
-                            
+                        <div class="comentario" id="div_comentario">
+
                         </div>
                         <div class="interacao_comentario">
                             <div class="curtir">
-                                <button></button>
+                                <button onclick="curtir()" id="btnCurtir"></button>
                             </div>
                             <div class="input_comentario">
-                                <input type="text" id="comentario">
+                                <input type="text" id="ipt_comentario">
                                 <div class="enviar">
-                                    <button></button>
+                                    <button onclick="comentar()" id="btnComentar"></button>
                                 </div>
                             </div>
                         </div>
@@ -202,6 +202,20 @@
         window.location.href = './index.html';
     }
 
+    function comentar() {
+        var comentario = ipt_comentario.value;
+        const nomeUsuario = sessionStorage.getItem('NOME_USUARIO');
+
+        div_comentario.innerHTML += `<b>${nomeUsuario}:</b> ${comentario} <br>`;
+        scrollComentarioNovo();
+    }
+
+
+
+    function scrollComentarioNovo() {
+        const div_comentario = document.getElementById('div_comentario');
+        div_comentario.scrollTop = div_comentario.scrollHeight;
+    }
 </script>
 
 </html>
