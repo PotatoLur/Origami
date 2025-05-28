@@ -49,16 +49,13 @@ INSERT INTO usuario (email, nome, senha) VALUES
     ('aoki@gmail.com', 'Aoki01', 'Aoki01@');
 
 INSERT INTO projeto (id, fkUsuario, nome, tipo, curtida) VALUES
-	(1, 1, 'Tsuru', 'Origami Tradicional', 15),
+	(1, 5, 'Tsuru', 'Origami Tradicional', 15),
 	(2, 2, 'Flor de Lótus', 'Origami Modular', 25),
 	(3, 3, 'Cisne', 'Origami 3D', 30),
 	(4, 1, 'Estrela Ninja', 'Origami Modular', 12),
 	(5, 1, 'Borboleta', 'Origami Tradicional', 20),
-    (1, 5, 'Cisne', 'Origami 3D', 50),
-	(2, 5, 'Polygonal Cubes', 'Origami Tradicional', 20);
-
-INSERT INTO projeto (id, fkUsuario, nome, tipo, curtida) VALUES
-	(3, 5, 'Tesselation', 'Origami Tesselation', 20);
+    (2, 5, 'Cisne', 'Origami 3D', 50),
+	(3, 5, 'Polygonal Cubes', 'Origami Tradicional', 20);
 
 INSERT INTO comentario (id, fkProjeto, fkUsuario, comentario) VALUES
 	(1, 1, 2, 'Muito bonito seu tsuru!'),
@@ -103,4 +100,4 @@ SELECT pontuacao
 FROM quiz
 WHERE fkUsuario = (SELECT id FROM usuario WHERE nome = 'Aoki01');
 
-SELECT * FROM comentario;
+SELECT * FROM projeto;

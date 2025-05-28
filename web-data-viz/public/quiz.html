@@ -387,9 +387,6 @@
 
     function cadastrarResultadoQuiz(pontuacaoFinal) {
         const nomeUsuario = sessionStorage.getItem('NOME_USUARIO');
-        console.log(pontuacaoFinal)
-        console.log(avaliacaoFinal)
-        console.log(nomeUsuario)
 
         fetch("/quiz/cadastrar", {
             method: "POST",
@@ -487,7 +484,7 @@
                             color: '#1b5e20',
                             font: {
                                 family: 'Winky Rough',
-                                size: 14,
+                                size: 16,
                                 weight: 'bold'
                             }
                         }
@@ -508,7 +505,7 @@
                             color: '#1b5e20',
                             font: {
                                 family: 'Winky Rough',
-                                size: 12,
+                                size: 14,
                                 weight: 'bold'
                             }
                         },
@@ -522,7 +519,7 @@
                             color: '#1b5e20',
                             font: {
                                 family: 'Winky Rough',
-                                size: 12,
+                                size: 14,
                                 weight: 'bold'
                             }
                         },
@@ -572,7 +569,7 @@
                             color: '#1b5e20',
                             font: {
                                 family: 'Winky Rough',
-                                size: 14,
+                                size: 16,
                                 weight: 'bold'
                             }
                         }

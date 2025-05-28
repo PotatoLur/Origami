@@ -101,6 +101,9 @@ header .navbar_direita {
     border: black solid 5px;
     padding: 15px;
     gap: 15px;
+    background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(210, 255, 210, 0.8));
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .main_tsuru p {
@@ -115,6 +118,9 @@ header .navbar_direita {
     padding: 30px 20px;
     gap: 30px;
     width: 48%;
+    background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(210, 255, 210, 0.8));
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .origami_tipo {
@@ -163,7 +169,7 @@ header .navbar_direita {
     border: black solid 5px;
 }
 
-.comunidade #navbar_quiz{
+.comunidade #navbar_quiz {
     display: none;
 }
 
@@ -173,22 +179,22 @@ header .navbar_direita {
     height: var(--tamanho_main);
     background: linear-gradient(to right, #86de86, #a0e5a0, #6fcf97);
     padding: 30px;
-    padding-bottom: 100px;
+    padding-bottom: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 70px;
+    gap: 30px;
 }
 
 .main_autor {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    width: 90%;
+    width: 95%;
 }
 
 .autor_img {
-    height: 500px;
+    height: 600px;
     border: black solid 5px;
 }
 
@@ -199,10 +205,15 @@ header .navbar_direita {
     align-items: start;
     font-size: 25px;
     width: 50%;
+    border: black solid 2px;
+    padding: 20px;
+    background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(210, 255, 210, 0.8));
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .autor h1 {
-    border-bottom: black solid 3px;
+    font-size: 50px;
 }
 
 /* SEM LOGIN */
@@ -229,7 +240,7 @@ header .navbar_direita {
     display: flex;
     flex-direction: row;
     width: 90%;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: start;
 }
 
@@ -239,6 +250,7 @@ header .navbar_direita {
     border: black solid 2px;
     padding: 20px 10px;
     width: 40%;
+    background-color: #c8f0c8cc;
 }
 
 
@@ -292,46 +304,63 @@ header .navbar_direita {
     display: flex;
     flex-direction: row;
     width: 90%;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: start;
 }
 
 .com_login .exemplo .postagem {
-    border: #000000 solid 5px;
+    border: #000000 solid 4px;
     display: flex;
     flex-direction: column;
     height: 500px;
     width: 600px;
 }
 
-.com_login .exemplo .postagem .topo_postagem{
+.com_login .exemplo .postagem .topo_postagem {
     display: flex;
     font-size: 20px;
+    height: 20%;
 }
 
 .com_login .exemplo .texto {
     display: flex;
     flex-direction: column;
     border: black solid 1px;
-    padding: 5px 5px;
-    height: 92px;
-    width: 50%;
+    width: 100%;
     justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 22px;
+    background-color: #c8f0c8cc;
 }
 
 .com_login .exemplo .postagem .area_comentario {
-    background-color: rgba(255, 255, 255, 0.445);
-    height: 90%;
+    background-color: #ffffff71;
+    height: 80%;
 }
 
 .com_login .exemplo .postagem .area_comentario .comentario {
-    background-color: rgba(255, 255, 255, 0.74);
+    background: linear-gradient(to bottom, #8cf78cd9, #7bf185e7, #ffffffe7);
     padding: 10px;
     height: 80%;
     border: black solid 1px;
     font-size: 20px;
     max-height: 319px;
     overflow-y: auto;
+}
+
+.com_login .exemplo .postagem .area_comentario .comentario p {
+    display: flex;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    width: fit-content;
+    color: #1e4633;
+    background-color: #c5c3c3de;
+    font-size: 22px;
+    font-weight: bold;
+    padding: 4px 8px;
+    border-radius: 6px;
 }
 
 .com_login .exemplo .postagem .area_comentario .interacao_comentario {
