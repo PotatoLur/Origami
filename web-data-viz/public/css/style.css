@@ -179,7 +179,7 @@ header .navbar_direita {
     height: var(--tamanho_main);
     background: linear-gradient(to right, #86de86, #a0e5a0, #6fcf97);
     padding: 30px;
-    padding-bottom: 40px;
+    padding-bottom: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -223,7 +223,7 @@ header .navbar_direita {
     flex-direction: column;
     align-items: center;
     gap: 80px;
-    width: 90%;
+    width: 80%;
 }
 
 .sem_login button {
@@ -260,8 +260,8 @@ header .navbar_direita {
     display: none;
     flex-direction: column;
     align-items: center;
-    gap: 80px;
-    width: 90%;
+    gap: 90px;
+    width: 80%;
 }
 
 .com_login .comeco {
@@ -340,7 +340,7 @@ header .navbar_direita {
 }
 
 .com_login .exemplo .postagem .area_comentario .comentario {
-    background: linear-gradient(to bottom, #8cf78cd9, #7bf185e7, #ffffffe7);
+    background: linear-gradient(to top, #b4f7bae7, #ffffffe7, #b4f7bae7);
     padding: 10px;
     height: 80%;
     border: black solid 1px;
@@ -355,8 +355,8 @@ header .navbar_direita {
     top: 0;
     z-index: 2;
     width: fit-content;
-    color: #1e4633;
-    background-color: #c5c3c3de;
+    color: #64daa3;
+    background-color: #000000de;
     font-size: 22px;
     font-weight: bold;
     padding: 4px 8px;

@@ -48,12 +48,11 @@
                 <button onclick="irParaCadastro()">Cadastrar</button>
             </div>
             <div class="exemplo">
-                <img class="comunidade_img" src="./img/cisne3d.jpeg" alt="">
+                <img class="comunidade_img" src="./img/1.jpeg" alt="">
                 <div class="texto">
                     <p>Autor: Guilherme Aoki</p>
                     <p>Tipo: Origami 3D</p>
                     <p>Nome: 3D Origami Swan</p>
-                    <p>Descrição: Inspirado por VeronicaFlavor (Youtube).</p>
                 </div>
             </div>
             <div class="exemplo">
@@ -61,12 +60,10 @@
                     <p>Autor: Guilherme Aoki</p>
                     <p>Tipo: Tradicional/Outros</p>
                     <p>Nome: Polygonal Cubes and Stars</p>
-                    <p>Descrição: Inspirado por @Artbeats_diary (Instagram).</p>
                 </div>
                 <div class="slides">
                     <div class="comunidade_img">
-                        <img src="./img/origami_pequeno1.jpeg" alt="">
-                        <img src="./img/origami_pequeno2.jpeg" alt="">
+                        <img src="./img/2.jpeg" alt="">
                     </div>
                 </div>
             </div>
@@ -96,19 +93,19 @@
                 </div>
             </div>
             <div class="exemplo">
-                <img class="comunidade_img" src="./img/cisne3d.jpeg" alt="">
+                <img class="comunidade_img" src="./img/1.jpeg" alt="">
                 <div class="postagem">
                     <div class="topo_postagem">
                         <div class="texto">
-                            <p>Autor: Guilherme Aoki</p>
-                            <p>Tipo: Origami 3D</p>
-                            <p>Nome: 3D Origami Swan</p>
+                            <p id="autorOrigami">Autor: Guilherme Aoki</p>
+                            <p id="tipoOrigami">Tipo: Origami 3D</p>
+                            <p id="nomeOrigami">Nome: 3D Origami Swan</p>
                         </div>
                     </div>
                     <div class="area_comentario">
                         <div class="comentario" id="div_comentario">
                             <p>
-                            💬 Comentários: 
+                                💬 Comentários:
                             </p>
                         </div>
                         <div class="interacao_comentario">
@@ -137,8 +134,7 @@
                 </div>
                 <div class="slides">
                     <div class="comunidade_img">
-                        <img src="./img/origami_pequeno1.jpeg" alt="">
-                        <img src="./img/origami_pequeno2.jpeg" alt="">
+                        <img src="./img/2.jpeg" alt="">
                     </div>
                 </div>
             </div>
@@ -184,6 +180,7 @@
         navbar_quiz.style.display = 'block';
         footer_cadastro.style.display = 'none';
         footer_login.style.display = 'none';
+        carregarPosts()
     } else {
         navbar_quiz.style.display = 'none';
     }
@@ -198,15 +195,116 @@
         window.location.href = './index.html';
     }
 
-    function comentar() {
-        var comentario = ipt_comentario.value;
-        const nomeUsuario = sessionStorage.getItem('NOME_USUARIO');
+    function carregarPosts() {
+        fetch('/comunidade/listar', {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        })
+            .then(function (resultado) {
+                return resultado.json();
+            })
+            .then(function (posts) {
+                var containerPrincipal = document.querySelector('.com_login');
 
-        div_comentario.innerHTML += `<b>${nomeUsuario}:</b> ${comentario} <br>`;
-        scrollComentarioNovo();
+                containerPrincipal.innerHTML = '';
+
+                for (var i = 0; i < posts.length; i++) {
+                    var post = posts[i];
+
+                    var divExemplo = document.createElement('div');
+                    divExemplo.className = 'exemplo';
+
+                    if (i % 2 == 0){
+                        divExemplo.innerHTML = `
+                        <img class="comunidade_img" src="./img/${post.id}.jpeg" alt="${post.nome}">
+                        <div class="postagem">
+                            <div class="topo_postagem">
+                                <div class="texto">
+                                    <p id="autorOrigami-${post.id}">Autor: ${post.autor}</p>
+                                    <p id="tipoOrigami-${post.id}">Tipo: ${post.tipo}</p>
+                                    <p id="nomeOrigami-${post.id}">Nome: ${post.nome}</p>
+                                </div>
+                            </div>
+                            <div class="area_comentario">
+                                <div class="comentario" id="div_comentario-${post.id}">
+                                    <p>💬 Comentários:</p>
+                                    <b>${post.autor}:</b> ${post.comentario}
+                                </div>
+                                <div class="interacao_comentario">
+                                    <div class="curtir">
+                                        <button onclick="curtir(${post.id})" id="btnCurtir-${post.id}"></button>
+                                    </div>
+                                    <div class="input_comentario">
+                                        <input type="text" id="ipt_comentario-${post.id}">
+                                        <div class="enviar">
+                                            <button onclick="comentar(${post.id})" id="btnComentar-${post.id}">Enviar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    } else {
+                        divExemplo.innerHTML = `
+                        <div class="postagem">
+                            <div class="topo_postagem">
+                                <div class="texto">
+                                    <p id="autorOrigami-${post.id}">Autor: ${post.autor}</p>
+                                    <p id="tipoOrigami-${post.id}">Tipo: ${post.tipo}</p>
+                                    <p id="nomeOrigami-${post.id}">Nome: ${post.nome}</p>
+                                </div>
+                            </div>
+                            <div class="area_comentario">
+                                <div class="comentario" id="div_comentario-${post.id}">
+                                    <p>💬 Comentários:</p>
+                                    <b>${post.autor}:</b> ${post.comentario}
+                                </div>
+                                <div class="interacao_comentario">
+                                    <div class="curtir">
+                                        <button onclick="curtir(${post.id})" id="btnCurtir-${post.id}"></button>
+                                    </div>
+                                    <div class="input_comentario">
+                                        <input type="text" id="ipt_comentario-${post.id}">
+                                        <div class="enviar">
+                                            <button onclick="comentar(${post.id})" id="btnComentar-${post.id}"></button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <img class="comunidade_img" src="./img/${post.id}.jpeg" alt="${post.nome}">
+                    `;
+                    }
+
+                    containerPrincipal.appendChild(divExemplo);
+                }
+            })
+            .catch(function (error) {
+                console.log('Ocorreu um erro:', error);
+            });
     }
 
+    function curtir(postId) {
+        console.log(`Curtiu o post ${postId}`);
+    }
 
+    function comentar(postId) {
+        const nomeUsuario = sessionStorage.getItem('NOME_USUARIO')
+        const input = document.getElementById(`ipt_comentario-${postId}`);
+        const comentario = input.value;
+
+        if (comentario.trim()) {
+            console.log(`Comentário no post ${postId}: ${comentario}`);
+
+            const divComentario = document.getElementById(`div_comentario-${postId}`);
+            divComentario.innerHTML += ` <br><b>${nomeUsuario}:</b> ${comentario}`;
+
+            input.value = '';
+        }
+        scrollComentarioNovo();
+    }
 
     function scrollComentarioNovo() {
         const div_comentario = document.getElementById('div_comentario');

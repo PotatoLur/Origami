@@ -14,8 +14,8 @@ CREATE TABLE usuario (
 CREATE TABLE projeto (
 	id INT NOT NULL,
     fkUsuario INT NOT NULL,
-    nome VARCHAR (45),
-    tipo VARCHAR (45),
+    nome VARCHAR (100),
+    tipo VARCHAR (20),
     curtida INT,
     PRIMARY KEY (id, fkUsuario),
     FOREIGN KEY (fkUsuario) REFERENCES usuario (id)
@@ -47,25 +47,27 @@ INSERT INTO usuario (email, nome, senha) VALUES
 	('pedro@email.com', 'pedroalves', 'senha789@'),
 	('ana@email.com', 'anacarvalho', 'senha321@'),
     ('aoki@gmail.com', 'Aoki01', 'Aoki01@');
-
+    
 INSERT INTO projeto (id, fkUsuario, nome, tipo, curtida) VALUES
-	(1, 5, 'Tsuru', 'Origami Tradicional', 15),
-	(2, 2, 'Flor de Lótus', 'Origami Modular', 25),
-	(3, 3, 'Cisne', 'Origami 3D', 30),
-	(4, 1, 'Estrela Ninja', 'Origami Modular', 12),
-	(5, 1, 'Borboleta', 'Origami Tradicional', 20),
-    (2, 5, 'Cisne', 'Origami 3D', 50),
-	(3, 5, 'Polygonal Cubes', 'Origami Tradicional', 20);
+	(1, 5, '3D Swan', 'Origami 3D', 15),
+	(2, 5, 'Polygonal Cubes and Stars', 'Origami Tradicional', 14),
+	(3, 5, '3D Snake', 'Origami 3D', 30),
+	(4, 5, 'DeBugger', 'Origami 3D', 22),
+	(5, 5, 'Balão 3D', 'Origami 3D', 50),
+    (6, 5, 'Herringbone Tesselation', 'Tesselation', 12),
+	(7, 5, 'Balão tradicional', 'Origami Tradicional', 10),
+    (8, 5, 'Joaninha 3D', 'Origami 3D', 20),
+    (9, 5, 'Icosaedro', 'Origami Modular', 21);
 
 INSERT INTO comentario (id, fkProjeto, fkUsuario, comentario) VALUES
-	(1, 1, 2, 'Muito bonito seu tsuru!'),
-	(2, 2, 1, 'Adorei sua flor de lótus!'),
-	(3, 3, 4, 'Esse cisne ficou incrível!'),
-	(4, 4, 3, 'Estrela muito bem feita!'),
-	(5, 5, 2, 'Linda borboleta!'),
-	(6, 1, 3, 'O papel usado ficou ótimo!'),
-	(7, 3, 1, 'Nunca vi um cisne tão detalhado!'),
-	(8, 2, 4, 'Parabéns pelo trabalho!');
+	(1, 1, 2, 'Esse cisne ficou incrível!'),
+	(2, 2, 3, 'Simples de aprender, parabéns.'),
+	(3, 3, 4, 'Muito bom! Deve ter demorado dias.'),
+	(4, 4, 1, 'Que fofinho!'),
+	(5, 5, 2, 'Nossa. Eu quero um!'),
+	(6, 6, 3, 'Muito interessante!'),
+	(7, 7, 1, 'Vou tentar fazer.'),
+	(8, 8, 4, 'Muito bem, ficou show com essas cores.');
 
 INSERT INTO quiz (pontuacao, avaliacao, fkUsuario) VALUES
 	(5, 'Bom', 1),
@@ -100,4 +102,16 @@ SELECT pontuacao
 FROM quiz
 WHERE fkUsuario = (SELECT id FROM usuario WHERE nome = 'Aoki01');
 
-SELECT * FROM projeto;
+SELECT comentario, nome FROM comentario c
+INNER JOIN usuario u ON u.id = c.fkUsuario;
+
+SELECT p.id AS id,
+	   u.nome AS autor,
+       p.tipo AS tipo,
+       p.nome AS nome,
+       comentario,
+       c.fkUsuario AS comentUsu
+FROM projeto p
+INNER JOIN usuario u ON u.id = p.fkUsuario
+INNER JOIN comentario c ON c.fkProjeto = p.id
+ORDER BY p.id;
