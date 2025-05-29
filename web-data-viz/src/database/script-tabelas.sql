@@ -42,10 +42,10 @@ CREATE TABLE quiz (
 );
 
 INSERT INTO usuario (email, nome, senha) VALUES
-	('joao@email.com', 'joaosilva', 'senha123@'),
-	('maria@email.com', 'mariasantos', 'senha456@'),
-	('pedro@email.com', 'pedroalves', 'senha789@'),
-	('ana@email.com', 'anacarvalho', 'senha321@'),
+	('joao@email.com', 'João Silva', 'senha123@'),
+	('maria@email.com', 'Maria Santos', 'senha456@'),
+	('pedro@email.com', 'Pedro Alves', 'senha789@'),
+	('ana@email.com', 'Ana Carvalho', 'senha321@'),
     ('aoki@gmail.com', 'Aoki01', 'Aoki01@');
     
 INSERT INTO projeto (id, fkUsuario, nome, tipo, curtida) VALUES
@@ -79,18 +79,6 @@ INSERT INTO quiz (pontuacao, avaliacao, fkUsuario) VALUES
     (3, 'Ótimo', 5),
     (4, 'Bom', 3);
 
-SELECT * FROM projeto p
-WHERE fkUsuario = (SELECT id FROM usuario WHERE nome = 'joaosilva');
-
-SELECT tipo, COUNT(tipo) quantidade_projeto FROM projeto p
-WHERE fkUsuario = (SELECT id FROM usuario WHERE nome = 'joaosilva')
-GROUP BY tipo;
-
-SELECT * FROM projeto p
-INNER JOIN usuario u ON u.id = p.fkUsuario
-INNER JOIN quiz q ON q.fkUsuario = u.id
-WHERE u.id = (SELECT id FROM usuario WHERE nome = 'joaosilva');
-
 SELECT * FROM usuario;
 
 SELECT * FROM quiz q
@@ -102,16 +90,20 @@ SELECT pontuacao
 FROM quiz
 WHERE fkUsuario = (SELECT id FROM usuario WHERE nome = 'Aoki01');
 
-SELECT comentario, nome FROM comentario c
-INNER JOIN usuario u ON u.id = c.fkUsuario;
-
 SELECT p.id AS id,
 	   u.nome AS autor,
-       p.tipo AS tipo,
-       p.nome AS nome,
-       comentario,
-       c.fkUsuario AS comentUsu
+	   p.tipo AS tipo,
+	   p.nome AS nome,
+	   comentario,
+	   curtida,
+       cu.nome AS comentUsu
 FROM projeto p
 INNER JOIN usuario u ON u.id = p.fkUsuario
 INNER JOIN comentario c ON c.fkProjeto = p.id
+INNER JOIN usuario cu ON cu.id = c.fkUsuario
 ORDER BY p.id;
+
+SELECT c.fkUsuario, u.nome AS comentUsu
+FROM comentario c
+INNER JOIN usuario u ON u.id = c.fkUsuario
+ORDER BY fkProjeto;

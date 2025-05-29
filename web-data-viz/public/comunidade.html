@@ -110,7 +110,8 @@
                         </div>
                         <div class="interacao_comentario">
                             <div class="curtir">
-                                <button onclick="curtir()" id="btnCurtir"></button>
+                                <input type="checkbox" id="btnCurtir">
+                                <!-- <button onclick="curtir()"></button> -->
                             </div>
                             <div class="input_comentario">
                                 <input type="text" id="ipt_comentario">
@@ -209,6 +210,7 @@
                 var containerPrincipal = document.querySelector('.com_login');
 
                 containerPrincipal.innerHTML = '';
+                const nomeUsuario = sessionStorage.getItem('NOME_USUARIO')
 
                 for (var i = 0; i < posts.length; i++) {
                     var post = posts[i];
@@ -216,7 +218,7 @@
                     var divExemplo = document.createElement('div');
                     divExemplo.className = 'exemplo';
 
-                    if (i % 2 == 0){
+                    if (i % 2 == 0) {
                         divExemplo.innerHTML = `
                         <img class="comunidade_img" src="./img/${post.id}.jpeg" alt="${post.nome}">
                         <div class="postagem">
@@ -230,17 +232,19 @@
                             <div class="area_comentario">
                                 <div class="comentario" id="div_comentario-${post.id}">
                                     <p>💬 Comentários:</p>
-                                    <b>${post.autor}:</b> ${post.comentario}
+                                    <b>${post.comentUsu}:</b> ${post.comentario}
                                 </div>
                                 <div class="interacao_comentario">
-                                    <div class="curtir">
-                                        <button onclick="curtir(${post.id})" id="btnCurtir-${post.id}"></button>
-                                    </div>
                                     <div class="input_comentario">
+                                        <span>${nomeUsuario}</span>
                                         <input type="text" id="ipt_comentario-${post.id}">
                                         <div class="enviar">
-                                            <button onclick="comentar(${post.id})" id="btnComentar-${post.id}">Enviar</button>
+                                            <button onclick="comentar(${post.id})" id="btnComentar-${post.id}"></button>
                                         </div>
+                                    </div>
+                                    <div class="curtir">
+                                        <button onclick="curtir(${post.id})" id="btnCurtir-${post.id}"></button>
+                                        <span id="numCurtida-${post.id}">${post.curtida}</span>
                                     </div>
                                 </div>
                             </div>
@@ -259,17 +263,19 @@
                             <div class="area_comentario">
                                 <div class="comentario" id="div_comentario-${post.id}">
                                     <p>💬 Comentários:</p>
-                                    <b>${post.autor}:</b> ${post.comentario}
+                                    <b>${post.comentUsu}:</b> ${post.comentario}
                                 </div>
                                 <div class="interacao_comentario">
-                                    <div class="curtir">
-                                        <button onclick="curtir(${post.id})" id="btnCurtir-${post.id}"></button>
-                                    </div>
                                     <div class="input_comentario">
+                                        <span>${nomeUsuario}</span>
                                         <input type="text" id="ipt_comentario-${post.id}">
                                         <div class="enviar">
                                             <button onclick="comentar(${post.id})" id="btnComentar-${post.id}"></button>
                                         </div>
+                                    </div>
+                                    <div class="curtir">
+                                        <button onclick="curtir(${post.id})" id="btnCurtir-${post.id}"></button>
+                                        <span id="numCurtida-${post.id}">${post.curtida}</span>
                                     </div>
                                 </div>
                             </div>
@@ -286,8 +292,11 @@
             });
     }
 
+    var clicado = false;
     function curtir(postId) {
         console.log(`Curtiu o post ${postId}`);
+        clicado = true;
+        const numCurtida = document.getElementById(`numCurtida-${postId}`).innerHTML += 1;
     }
 
     function comentar(postId) {
@@ -300,14 +309,15 @@
 
             const divComentario = document.getElementById(`div_comentario-${postId}`);
             divComentario.innerHTML += ` <br><b>${nomeUsuario}:</b> ${comentario}`;
-
-            input.value = '';
         }
-        scrollComentarioNovo();
+
+        input.value = '';
+
+        scrollComentarioNovo(postId);
     }
 
-    function scrollComentarioNovo() {
-        const div_comentario = document.getElementById('div_comentario');
+    function scrollComentarioNovo(postId) {
+        const div_comentario = document.getElementById(`div_comentario-${postId}`);
         div_comentario.scrollTop = div_comentario.scrollHeight;
     }
 </script>

@@ -75,7 +75,7 @@ header .navbar_direita {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 70px;
+    gap: 60px;
 }
 
 .main_img {
@@ -156,7 +156,7 @@ header .navbar_direita {
     flex-direction: column;
     align-items: center;
     font-size: 25px;
-    gap: 20px;
+    gap: 60px;
 }
 
 .comunidade h1 {
@@ -344,7 +344,7 @@ header .navbar_direita {
     padding: 10px;
     height: 80%;
     border: black solid 1px;
-    font-size: 20px;
+    font-size: 22px;
     max-height: 319px;
     overflow-y: auto;
 }
@@ -361,12 +361,13 @@ header .navbar_direita {
     font-weight: bold;
     padding: 4px 8px;
     border-radius: 6px;
+    margin-bottom: 8px;
 }
 
 .com_login .exemplo .postagem .area_comentario .interacao_comentario {
     display: flex;
     flex-direction: row;
-    padding: 10px;
+    padding: 8px;
     border: black solid 1px;
     height: 20%;
     align-items: center;
@@ -374,17 +375,34 @@ header .navbar_direita {
 }
 
 .com_login .exemplo .postagem .area_comentario .interacao_comentario .curtir button {
-    background-image: url(./../img/curtir.png);
+    background-image: url(./../img/curtir2.png);
+    rotate: 3deg;
     background-size: contain;
     border-radius: 100%;
     height: 50px;
     width: 50px;
+    position: absolute;
 }
 
 .com_login .exemplo .postagem .area_comentario .interacao_comentario .curtir {
-    height: 50px;
-    width: 50px;
+    height: 60px;
+    width: 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
+
+.com_login .exemplo .postagem .area_comentario .interacao_comentario .curtir span {
+    font-size: 20px;
+    color: #212427;
+    font-weight: 700;
+    height: 100%;
+    display: flex;
+    align-items: end;
+    align-self: flex-end;
+    z-index: 2;
+}
+
 
 .com_login .exemplo .postagem .area_comentario .interacao_comentario button:hover {
     background-color: #84e0fc;
@@ -397,6 +415,14 @@ header .navbar_direita {
     height: 100%;
     width: 100%;
     gap: 10px;
+}
+
+.com_login .exemplo .postagem .area_comentario .interacao_comentario .input_comentario span {
+    font-size: 20px;
+    font-weight: 700;
+    padding: 5px;
+    border: black solid;
+    border-radius: 9px;
 }
 
 .com_login .exemplo .postagem .area_comentario .interacao_comentario .input_comentario input {
@@ -417,8 +443,10 @@ header .navbar_direita {
 }
 
 .com_login .exemplo .postagem .area_comentario .interacao_comentario .input_comentario .enviar {
-    height: 50px;
-    width: 50px;
+    height: 60px;
+    width: 55px;
+    display: flex;
+    align-items: center;
 }
 
 /* MAIN CADASTRO */
