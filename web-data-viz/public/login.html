@@ -126,15 +126,26 @@
         }).then(function (resposta) {
             console.log("ESTOU NO THEN DO entrar()! login.html")
             if (resposta.ok) {
-                var logado = sessionStorage.setItem('logado', 'logadoSim');
-
+                
                 resposta.json().then(json => {
+                    var logado = sessionStorage.setItem('logado', 'logadoSim');
                     console.log(json);
                     console.log(JSON.stringify(json));
-                    sessionStorage.EMAIL_USUARIO = json.email;
-                    sessionStorage.NOME_USUARIO = json.nome;
-                    sessionStorage.setItem('idUsuario', json.id);
+                    const usuario = json[0];
+                    // sessionStorage.EMAIL_USUARIO = json.email;
+                    // sessionStorage.NOME_USUARIO = json.nome;
+                    // sessionStorage.setItem('idUsuario', json.id);
 
+                    sessionStorage.setItem('ID_USUARIO', json.id);
+                    sessionStorage.setItem('NOME_USUARIO', json.nome);
+                    sessionStorage.setItem('EMAIL_USUARIO', json.email);
+
+                    console.log("Dados armazenados:", {
+                        id: sessionStorage.getItem('ID_USUARIO'),
+                        nome: sessionStorage.getItem('NOME_USUARIO'),
+                        email: sessionStorage.getItem('EMAIL_USUARIO')
+                    });
+                    
                     div_erro.innerHTML = 'Entrando na conta...';
                     setTimeout(function () {
                         window.location = "./comunidade.html";

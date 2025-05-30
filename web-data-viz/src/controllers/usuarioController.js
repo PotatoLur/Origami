@@ -20,8 +20,10 @@ function autenticar(req, res) {
                     if (resultadoAutenticar.length == 1) {
                         console.log('usuarioController', resultadoAutenticar);
                         res.json({
+                            id: resultadoAutenticar[0].id,
                             nome: resultadoAutenticar[0].nome,
-                            senha: resultadoAutenticar[0].senha,
+                            email: resultadoAutenticar[0].email,
+                            senha: resultadoAutenticar[0].senha
                         });
                     } else if (resultadoAutenticar.length == 0) {
                         res.status(403).send("Nome e/ou senha inválido(s)");

@@ -12,7 +12,39 @@ function listar(req, res) {
         })
 }
 
+function adicionar(req, res) {
+    comunidadeModel.adicionar(req.body.usuarioId, req.body.postId)
+        .then(resposta => {
+            res.status(200).json({ success: true });
+        })
+        .catch(erro => res.status(500).json(erro));
+}
+
+function remover(req, res) {
+    comunidadeModel.remover(req.body.usuarioId, req.body.postId)
+        .then(resposta => res.status(200).json(resposta))
+        .catch(erro => res.status(500).json(erro));
+}
+
+function verificar(req, res) {
+    comunidadeModel.verificar(req.params.usuarioId, req.params.postId)
+        .then(resposta => res.status(200).json(resposta[0]))
+        .catch(erro => res.status(500).json(erro));
+}
+
+function comentar(req, res) {
+    comunidadeModel.comentar(
+        req.body.usuarioId, 
+        req.body.postId,
+        req.body.comentario
+    ).then(resposta => res.status(200).json(resposta))
+     .catch(erro => res.status(500).json(erro));
+}
 
 module.exports = {
-    listar
+    listar,
+    adicionar,
+    remover,
+    verificar,
+    comentar
 }

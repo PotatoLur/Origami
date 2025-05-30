@@ -208,83 +208,105 @@
             })
             .then(function (posts) {
                 var containerPrincipal = document.querySelector('.com_login');
-
                 containerPrincipal.innerHTML = '';
-                const nomeUsuario = sessionStorage.getItem('NOME_USUARIO')
+                const nomeUsuario = sessionStorage.getItem('NOME_USUARIO');
 
+                var postsAgrupados = {};
                 for (var i = 0; i < posts.length; i++) {
                     var post = posts[i];
+                    if (!postsAgrupados[post.id]) {
+                        postsAgrupados[post.id] = {
+                            id: post.id,
+                            autor: post.autor,
+                            tipo: post.tipo,
+                            nome: post.nome,
+                            curtida: post.curtida,
+                            comentarios: []
+                        };
+                    }
 
+                    if (post.comentario && post.comentUsu) {
+                        postsAgrupados[post.id].comentarios.push({
+                            autor: post.comentUsu,
+                            texto: post.comentario
+                        });
+                    }
+                }
+
+                var postsParaExibir = Object.values(postsAgrupados);
+                for (var i = 0; i < postsParaExibir.length; i++) {
+                    var post = postsParaExibir[i];
                     var divExemplo = document.createElement('div');
                     divExemplo.className = 'exemplo';
 
+                    // Constrói HTML dos comentários
+                    var comentariosHTML = '<p>💬 Comentários:</p>';
+                    for (var j = 0; j < post.comentarios.length; j++) {
+                        var comentario = post.comentarios[j];
+                        comentariosHTML += `<b>${comentario.autor}:</b> ${comentario.texto}<br>`;
+                    }
+
+                    // HTML do post (alternando layout)
                     if (i % 2 == 0) {
                         divExemplo.innerHTML = `
-                        <img class="comunidade_img" src="./img/${post.id}.jpeg" alt="${post.nome}">
-                        <div class="postagem">
-                            <div class="topo_postagem">
-                                <div class="texto">
-                                    <p id="autorOrigami-${post.id}">Autor: ${post.autor}</p>
-                                    <p id="tipoOrigami-${post.id}">Tipo: ${post.tipo}</p>
-                                    <p id="nomeOrigami-${post.id}">Nome: ${post.nome}</p>
-                                </div>
+                    <img class="comunidade_img" src="./img/${post.id}.jpeg" alt="${post.nome}">
+                    <div class="postagem">
+                        <div class="topo_postagem">
+                            <div class="texto">
+                                <p>Autor: ${post.autor}</p>
+                                <p>Tipo: ${post.tipo}</p>
+                                <p>Nome: ${post.nome}</p>
                             </div>
-                            <div class="area_comentario">
-                                <div class="comentario" id="div_comentario-${post.id}">
-                                    <p>💬 Comentários:</p>
-                                    <b>${post.comentUsu}:</b> ${post.comentario}
+                        </div>
+                        <div class="area_comentario">
+                            <div class="comentario">${comentariosHTML}</div>
+                            <div class="interacao_comentario">
+                                <div class="input_comentario">
+                                    <span>${nomeUsuario}</span>
+                                    <input type="text" id="ipt_comentario-${post.id}">
+                                    <div class="enviar">
+                                        <button onclick="comentar(${post.id})" id="btnComentar-${post.id}"></button>
+                                    </div>
                                 </div>
-                                <div class="interacao_comentario">
-                                    <div class="input_comentario">
-                                        <span>${nomeUsuario}</span>
-                                        <input type="text" id="ipt_comentario-${post.id}">
-                                        <div class="enviar">
-                                            <button onclick="comentar(${post.id})" id="btnComentar-${post.id}"></button>
-                                        </div>
-                                    </div>
-                                    <div class="curtir">
-                                        <button onclick="curtir(${post.id})" id="btnCurtir-${post.id}"></button>
-                                        <span id="numCurtida-${post.id}">${post.curtida}</span>
-                                    </div>
+                                <div class="curtir">
+                                    <button class="heart-btn" onclick="curtir(${post.id})" id="btnCurtir-${post.id}"></button>
+                                    <span id="numCurtida-${post.id}">${post.curtida}</span>
                                 </div>
                             </div>
                         </div>
-                    `;
+                    </div>`;
                     } else {
                         divExemplo.innerHTML = `
-                        <div class="postagem">
-                            <div class="topo_postagem">
-                                <div class="texto">
-                                    <p id="autorOrigami-${post.id}">Autor: ${post.autor}</p>
-                                    <p id="tipoOrigami-${post.id}">Tipo: ${post.tipo}</p>
-                                    <p id="nomeOrigami-${post.id}">Nome: ${post.nome}</p>
-                                </div>
+                    <div class="postagem">
+                        <div class="topo_postagem">
+                            <div class="texto">
+                                <p>Autor: ${post.autor}</p>
+                                <p>Tipo: ${post.tipo}</p>
+                                <p>Nome: ${post.nome}</p>
                             </div>
-                            <div class="area_comentario">
-                                <div class="comentario" id="div_comentario-${post.id}">
-                                    <p>💬 Comentários:</p>
-                                    <b>${post.comentUsu}:</b> ${post.comentario}
+                        </div>
+                        <div class="area_comentario">
+                            <div class="comentario">${comentariosHTML}</div>
+                            <div class="interacao_comentario">
+                                <div class="input_comentario">
+                                    <span>${nomeUsuario}</span>
+                                    <input type="text" id="ipt_comentario-${post.id}">
+                                    <div class="enviar">
+                                        <button onclick="comentar(${post.id})" id="btnComentar-${post.id}"></button>
+                                    </div>
                                 </div>
-                                <div class="interacao_comentario">
-                                    <div class="input_comentario">
-                                        <span>${nomeUsuario}</span>
-                                        <input type="text" id="ipt_comentario-${post.id}">
-                                        <div class="enviar">
-                                            <button onclick="comentar(${post.id})" id="btnComentar-${post.id}"></button>
-                                        </div>
-                                    </div>
-                                    <div class="curtir">
-                                        <button onclick="curtir(${post.id})" id="btnCurtir-${post.id}"></button>
-                                        <span id="numCurtida-${post.id}">${post.curtida}</span>
-                                    </div>
+                                <div class="curtir">
+                                    <button class="heart-btn" onclick="curtir(${post.id})" id="btnCurtir-${post.id}"></button>
+                                    <span id="numCurtida-${post.id}">${post.curtida}</span>
                                 </div>
                             </div>
                         </div>
-                        <img class="comunidade_img" src="./img/${post.id}.jpeg" alt="${post.nome}">
-                    `;
+                    </div>
+                    <img class="comunidade_img" src="./img/${post.id}.jpeg" alt="${post.nome}">`;
                     }
 
                     containerPrincipal.appendChild(divExemplo);
+                    verificarCurtidas(post.id, sessionStorage.getItem('ID_USUARIO'));
                 }
             })
             .catch(function (error) {
@@ -292,34 +314,86 @@
             });
     }
 
-    var clicado = false;
     function curtir(postId) {
-        console.log(`Curtiu o post ${postId}`);
-        clicado = true;
-        const numCurtida = document.getElementById(`numCurtida-${postId}`).innerHTML += 1;
+        const btnCurtir = document.getElementById(`btnCurtir-${postId}`);
+        const numCurtida = document.getElementById(`numCurtida-${postId}`);
+        const usuarioId = sessionStorage.getItem('ID_USUARIO');
+        const naoCurtiu = btnCurtir.classList.contains('curtido');
+
+        fetch(naoCurtiu ? '/comunidade/remover' : '/comunidade/adicionar', {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ postId, usuarioId })
+        })
+            .then(response => {
+                if (!response.ok) throw new Error('Erro na requisição');
+                return response.json();
+            })
+            .then(() => {
+                btnCurtir.classList.toggle('curtido');
+                numCurtida.textContent = naoCurtiu
+                    ? parseInt(numCurtida.textContent) - 1
+                    : parseInt(numCurtida.textContent) + 1;
+            })
+            .catch(error => console.error('Erro:', error));
+    }
+
+    function verificarCurtidas(postId, usuarioId) {
+        fetch(`/comunidade/verificar/${usuarioId}/${postId}`)
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                if (data.naoCurtiu) {
+                    document.getElementById(`btnCurtir-${postId}`).classList.add('curtido');
+                } 
+            })
+            .catch(function (error) {
+                console.error('Erro ao verificar curtida:', error);
+            });
     }
 
     function comentar(postId) {
-        const nomeUsuario = sessionStorage.getItem('NOME_USUARIO')
         const input = document.getElementById(`ipt_comentario-${postId}`);
-        const comentario = input.value;
+        const comentario = input.value.trim();
+        const usuarioId = sessionStorage.getItem('ID_USUARIO');
+        const nomeUsuario = sessionStorage.getItem('NOME_USUARIO');
 
-        if (comentario.trim()) {
-            console.log(`Comentário no post ${postId}: ${comentario}`);
+        if (comentario) {
+            fetch('/comunidade/comentar', {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    usuarioId: usuarioId,
+                    postId: postId,
+                    comentario: comentario
+                })
+            }).then(response => response.json())
+                .then(data => {
+                    if (data.affectedRows > 0) {
+                        // Encontra a div de comentários correta
+                        const postElement = input.closest('.exemplo');
+                        const comentarioDiv = postElement.querySelector('.comentario');
 
-            const divComentario = document.getElementById(`div_comentario-${postId}`);
-            divComentario.innerHTML += ` <br><b>${nomeUsuario}:</b> ${comentario}`;
+                        // Adiciona o novo comentário
+                        if (comentarioDiv.innerHTML.includes('Nenhum comentário ainda')) {
+                            comentarioDiv.innerHTML = `<p>💬 Comentários:</p><b>${nomeUsuario}:</b> ${comentario}`;
+                        } else {
+                            comentarioDiv.innerHTML += `<b>${nomeUsuario}:</b> ${comentario}<br>`;
+                        }
+
+                        input.value = '';
+                        scrollComentarioNovo(postId);
+                    }
+                });
         }
-
-        input.value = '';
-
-        scrollComentarioNovo(postId);
     }
 
     function scrollComentarioNovo(postId) {
-        const div_comentario = document.getElementById(`div_comentario-${postId}`);
-        div_comentario.scrollTop = div_comentario.scrollHeight;
-    }
+    const postElement = document.getElementById(`ipt_comentario-${postId}`).closest('.exemplo');
+    const comentarioDiv = postElement.querySelector('.comentario');
+    comentarioDiv.scrollTop = comentarioDiv.scrollHeight;
+}
 </script>
 
 </html>
