@@ -41,9 +41,21 @@ function listarPizza(req, res) {
         })
 }
 
+function listarTabela(req, res) {
+    var userId = req.params.userId;
+    
+    quizModel.listarTabela(userId)
+        .then(function (resultado) {
+            res.status(200).json(resultado);
+        }).catch(function (erro) {
+            res.status(500).json(erro.sqlMessage);
+        })
+}
+
 
 module.exports = {
     listarBarra,
     listarPizza,
-    cadastrar
+    cadastrar,
+    listarTabela
 }

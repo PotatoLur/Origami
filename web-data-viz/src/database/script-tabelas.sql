@@ -141,9 +141,47 @@ LEFT JOIN curtida c ON p.id = c.fkProjeto
 GROUP BY p.id, p.nome;
 
 SELECT * FROM comentario;
+
 SELECT * FROM usuario;
+
 SELECT * FROM curtida c
 INNER JOIN projeto p ON fkProjeto = p.id
 INNER JOIN usuario u ON u.id = c.fkUsuario
 WHERE p.nome LIKE '%Balão%'
 ORDER BY data_curtida;
+
+
+
+SELECT fkProjeto, COUNT(c.fkProjeto) AS totalComentarios FROM comentario c
+INNER JOIN projeto p ON p.id = c.fkProjeto
+GROUP BY fkProjeto;
+
+SELECT * FROM usuario u
+INNER JOIN curtida cu ON cu.fkUsuario = u.id
+INNER JOIN comentario c ON c.fkUsuario = u.id
+ORDER BY u.id;
+
+SELECT * FROM curtida;
+SELECT * FROM comentario;
+
+SELECT * FROM projeto p
+LEFT JOIN curtida cu ON cu.fkProjeto = p.id
+LEFT JOIN comentario c ON c.fkProjeto = p.id;
+
+SELECT p.nome, p.tipo, 
+		COUNT(cu.fkProjeto) AS totalCurtidas, 
+        COUNT(c.id) AS totalComentarios 
+FROM projeto p
+LEFT JOIN curtida cu ON cu.fkProjeto = p.id
+LEFT JOIN comentario c ON c.fkProjeto = p.id
+GROUP BY p.nome, p.tipo;
+
+SELECT p.nome, p.tipo,
+		totalCurtidas, totalComentarios
+FROM projeto p
+LEFT JOIN (SELECT fkProjeto, COUNT(cu.fkProjeto) AS totalCurtidas FROM curtida cu
+			GROUP BY fkProjeto) AS curtidas ON curtidas.fkProjeto = p.id
+LEFT JOIN (SELECT fkProjeto, COUNT(c.fkProjeto) AS totalComentarios FROM comentario c
+			GROUP BY fkProjeto) AS comentarios ON comentarios.fkProjeto = p.id
+WHERE p.fkUsuario = 5
+ORDER BY p.id;

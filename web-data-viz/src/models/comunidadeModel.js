@@ -1,24 +1,5 @@
 var database = require("../database/config")
 
-// function listar() {
-//     var instrucao = `
-//         SELECT p.id AS id,
-//                u.nome AS autor,
-//                p.tipo AS tipo,
-//                p.nome AS nome,
-//                c.comentario AS comentario,
-//                (SELECT COUNT(*) FROM curtida WHERE fkProjeto = p.id) AS curtida,
-//                GROUP_CONCAT(CONCAT(cu.nome, ':', c.comentario) SEPARATOR '||') AS comentarios
-//         FROM projeto p
-//         INNER JOIN usuario u ON u.id = p.fkUsuario
-//         LEFT JOIN comentario c ON c.fkProjeto = p.id
-//         LEFT JOIN usuario cu ON cu.id = c.fkUsuario
-//         GROUP BY p.id, u.nome, p.tipo, p.nome, c.comentario, cu.nome
-//         ORDER BY p.id;`;
-//     console.log("Executando a instrução SQL: \n" + instrucao);
-//     return database.executar(instrucao);
-// }
-
 function listar() {
     var instrucao = `
         SELECT 

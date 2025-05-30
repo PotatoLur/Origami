@@ -21,7 +21,7 @@ var avisosRouter = require("./src/routes/avisos");
 var medidasRouter = require("./src/routes/medidas");
 var aquariosRouter = require("./src/routes/aquarios");
 var empresasRouter = require("./src/routes/empresas");
-var quizRouter = require("./src/routes/quiz"); // Quiz
+var quizRouter = require("./src/routes/quiz");
 var comunidadeRouter = require("./src/routes/comunidade");
 
 

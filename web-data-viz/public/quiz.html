@@ -94,17 +94,21 @@
                 <button onclick="avancar()" id="btnProx" disabled>Avançar para próxima questão</button>
                 <button onclick="avancar()" id="btnConcluir" disabled>Concluir quiz</button>
             </div>
-
         </div>
         <div class="estatisticas" id="estatisticas">
-            <div class="grafico" id="grafico">
-                <div class="graficoPizza">
-                    <p>Histórico do Quiz:</p>
-                    <canvas id="graficoBarra"></canvas>
+            <div class="localGraficos">
+                <div class="grafico" id="grafico">
+                    <div class="graficoPizza">
+                        <p>Histórico do Quiz:</p>
+                        <canvas id="graficoBarra"></canvas>
+                    </div>
+                    <div class="graficoPizza">
+                        <p>Seus Projetos:</p>
+                        <canvas id="graficoPizza"></canvas>
+                    </div>
                 </div>
-                <div class="graficoPizza">
-                    <p>Seus Projetos:</p>
-                    <canvas id="graficoPizza"></canvas>
+                <div class="tabela" id="tabela">
+                    
                 </div>
             </div>
             <button onclick="tentarNovamente()" id="btnVoltar">Voltar</button>
@@ -190,8 +194,7 @@
 
 
     ]
-
-    // variáveis globais    
+ 
     let numeroDaQuestaoAtual = 0
     let pontuacaoFinal = 0
     let tentativaIncorreta = 0
@@ -200,7 +203,6 @@
     let quantidadeDeQuestoes = listaDeQuestoes.length
     document.getElementById("spanCertas").innerHTML = certas
     document.getElementById("spanErradas").innerHTML = erradas
-    // let isUltima = numeroDaQuestaoAtual == quantidadeDeQuestoes-1 ? true : false
 
     function iniciarQuiz() {
         document.getElementById('jogo').style.display = "flex"
@@ -285,7 +287,6 @@
     }
 
     function tentarNovamente() {
-        // atualiza a página
         window.location.reload()
     }
 
@@ -409,6 +410,7 @@
                 console.log("Dados salvos:", data);
                 carregarGraficoBarra();
                 carregarGraficoPizza();
+                carregarTabela();
                 estatisticas.style.display = 'flex';
                 btnVoltar.style.display = 'none';
             })
@@ -590,6 +592,53 @@
         inicioDoQuiz.style.display = 'none';
         carregarGraficoBarra();
         carregarGraficoPizza();
+        carregarTabela();
         estatisticas.style.display = 'flex';
+    }
+
+    function carregarTabela() {
+        const userId = sessionStorage.getItem('ID_USUARIO');
+        
+        fetch(`/quiz/listarTabela/${userId}`, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(function (resultado) {
+            return resultado.json();
+        })
+            .then(function (tabela) {
+                gerarTabela(tabela);
+            })
+            .catch(function (error) {
+                console.log('Ocorreu um erro:', error);
+            });
+    }
+
+    function gerarTabela(tabela){
+        var tabelaGeral = document.getElementById('tabela');
+        var tabelaDados = '';
+
+        for (var i = 0; i < tabela.length; i++){
+            tabelaDados += `<tr>
+                                <td>${tabela[i].nome}</td>
+                                <td>${tabela[i].tipo}</td>
+                                <td>${tabela[i].curtida}</td>
+                                <td>${tabela[i].comentario}</td>
+                            </tr>`;
+        }
+        tabelaGeral.innerHTML = `<table>
+                        <thead>
+                            <tr>
+                                <th>Projeto</th>
+                                <th>Tipo</th>
+                                <th>Curtidas</th>
+                                <th>Comentários</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${tabelaDados}
+                        </tbody>
+                    </table>`;
     }
 </script>
