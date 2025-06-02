@@ -166,6 +166,7 @@ header .navbar_direita {
 .comunidade_img {
     display: flex;
     height: 500px;
+    max-width: 800px;
     border: black solid 5px;
 }
 
@@ -264,15 +265,25 @@ header .navbar_direita {
     width: 80%;
 }
 
-.com_login .comeco {
-    display: flex;
-    width: 40%;
+.areaCompartilhar {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+}
+
+.areaCompartilhar span {
+    color: red;
+}
+
+.enviarProjeto {
+    display: none;
+    width: 60%;
     justify-content: center;
     gap: 2%;
     align-items: center;
 }
 
-.com_login .comeco select {
+.enviarProjeto select {
     font-size: 18px;
     height: 30px;
     width: 190px;
@@ -280,7 +291,7 @@ header .navbar_direita {
     border: black solid 1px;
 }
 
-.com_login .comeco #ipt_pesquisar {
+.enviarProjeto input {
     font-size: 18px;
     width: 200px;
     height: 30px;
@@ -289,15 +300,24 @@ header .navbar_direita {
     text-align: center;
 }
 
-.com_login .comeco button {
-    width: 30px;
+.enviarProjeto #foto_origami {
+    width: fit-content;
+    height: 100%;
+    border: none;
+}
+
+.enviarProjeto #btn_enviarOrigami {
+    width: 90px;
     height: 30px;
     border: black solid 1px;
     border-radius: 8px;
+    font-size: 18px;
+    cursor: pointer;
 }
 
-.login #btn_pesquisar:hover {
+.enviarProjeto #btn_enviarOrigami:hover {
     background-color: grey;
+    transition: 0.8s;
 }
 
 .com_login .exemplo {
@@ -693,6 +713,7 @@ header .navbar_direita {
     align-items: center;
     font-size: 27px;
     justify-content: center;
+    gap: 50px;
 }
 
 .quiz #inicioDoQuiz {

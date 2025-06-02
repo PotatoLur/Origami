@@ -48,7 +48,7 @@
                 <button onclick="irParaCadastro()">Cadastrar</button>
             </div>
             <div class="exemplo">
-                <img class="comunidade_img" src="./img/1.jpeg" alt="">
+                <img class="comunidade_img" src="./img/3D Swan.jpeg" alt="">
                 <div class="texto">
                     <p>Autor: Guilherme Aoki</p>
                     <p>Tipo: Origami 3D</p>
@@ -63,7 +63,7 @@
                 </div>
                 <div class="slides">
                     <div class="comunidade_img">
-                        <img src="./img/2.jpeg" alt="">
+                        <img src="./img/Polygonal Cubes and Stars.jpeg" alt="">
                     </div>
                 </div>
             </div>
@@ -77,17 +77,23 @@
             </div>
         </div>
         <div class="com_login" id="com_login">
-            <div class="comeco">
-                <label>Pesquisar: </label>
-                <select name="sel_opcoes" id="sel_opcoes">
-                    <option value="todos">Todos</option>
-                    <option value="tradicional">Tradicional/Outros</option>
-                    <option value="modular">Modular</option>
-                    <option value="tessellation">Tessellation</option>
-                    <option value="origami3d">Origami 3D</option>
-                    <option value="autor">Autor</option>
-                </select>
-            </div>
+
+        </div>
+        <div class="areaCompartilhar" id="areaCompartilhar">
+            <h2>Compartilhe os seus projetos:</h2>
+            <span>Apenas arquivos JPEG</span>
+        </div>
+        <div class="enviarProjeto" id="enviarProjeto">
+            <label>Nome do projeto: </label>
+            <input name="ipt_nome" id="ipt_nome" type="text" />
+            <select id="sel_tipo">
+                <option value="Origami Tradicional">Origami Tradicional</option>
+                <option value="Origami Modular">Origami Modular</option>
+                <option value="Origami Tessellation">Origami Tessellation</option>
+                <option value="Origami 3D">Origami 3D</option>
+            </select>
+            <input name="foto_origami" id="foto_origami" type="file" />
+            <button id="btn_enviarOrigami" onclick="enviarOrigami()">Enviar</button>
         </div>
     </main>
 
@@ -128,6 +134,8 @@
         navbar_login.style.display = 'none';
         navbar_sair.style.display = 'flex';
         navbar_quiz.style.display = 'block';
+        enviarProjeto.style.display = 'block';
+        areaCompartilhar.style.display = 'flex';
         footer_cadastro.style.display = 'none';
         footer_login.style.display = 'none';
         carregarPosts()
@@ -198,7 +206,7 @@
                     // HTML do post (alternando layout)
                     if (i % 2 == 0) {
                         divExemplo.innerHTML = `
-                    <img class="comunidade_img" src="./img/${post.id}.jpeg" alt="${post.nome}">
+                    <img class="comunidade_img" src="./img/${post.nome}.jpeg" alt="${post.nome}">
                     <div class="postagem">
                         <div class="topo_postagem">
                             <div class="texto">
@@ -251,7 +259,7 @@
                             </div>
                         </div>
                     </div>
-                    <img class="comunidade_img" src="./img/${post.id}.jpeg" alt="${post.nome}">`;
+                    <img class="comunidade_img" src="./img/${post.nome}.jpeg" alt="${post.nome}">`;
                     }
 
                     containerPrincipal.appendChild(divExemplo);
@@ -295,7 +303,7 @@
             .then(function (data) {
                 if (data.naoCurtiu) {
                     document.getElementById(`btnCurtir-${postId}`).classList.add('curtido');
-                } 
+                }
             })
             .catch(function (error) {
                 console.error('Erro ao verificar curtida:', error);
@@ -339,10 +347,32 @@
     }
 
     function scrollComentarioNovo(postId) {
-    const postElement = document.getElementById(`ipt_comentario-${postId}`).closest('.exemplo');
-    const comentarioDiv = postElement.querySelector('.comentario');
-    comentarioDiv.scrollTop = comentarioDiv.scrollHeight;
-}
+        const postElement = document.getElementById(`ipt_comentario-${postId}`).closest('.exemplo');
+        const comentarioDiv = postElement.querySelector('.comentario');
+        comentarioDiv.scrollTop = comentarioDiv.scrollHeight;
+    }
+
+    function enviarOrigami() {
+        const usuarioId = sessionStorage.getItem('ID_USUARIO');
+        const formData = new FormData();
+        
+        formData.append('foto', foto_origami.files[0])
+        formData.append('nome', ipt_nome.value)
+        formData.append('tipo', sel_tipo.value)
+        formData.append('id', usuarioId)
+
+        fetch("/comunidade/enviar", {
+            method: "POST",
+            body: formData
+        })
+            .then(res => {
+                carregarPosts();
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    }
+
 </script>
 
 </html>

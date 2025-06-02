@@ -41,10 +41,27 @@ function comentar(req, res) {
      .catch(erro => res.status(500).json(erro));
 }
 
+
+function enviar(req, res) {
+  const imagem = req.file.filename;
+
+  const {nome, tipo, id} = req.body
+
+  const usuario = { nome, tipo, id, imagem }
+  
+  comunidadeModel.enviar(usuario)
+  .then(resultado => {
+    res.status(201).send("Post enviado com sucesso");
+  }).catch(err => {
+    res.status(500).send(err);
+  });
+}
+
 module.exports = {
     listar,
     adicionar,
     remover,
     verificar,
-    comentar
+    comentar,
+    enviar
 }

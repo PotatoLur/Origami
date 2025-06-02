@@ -12,7 +12,7 @@ CREATE TABLE usuario (
 );
 
 CREATE TABLE projeto (
-	id INT NOT NULL,
+	id INT NOT NULL AUTO_INCREMENT,
     fkUsuario INT NOT NULL,
     nome VARCHAR (100),
     tipo VARCHAR (20),
@@ -59,14 +59,14 @@ INSERT INTO usuario (email, nome, senha) VALUES
     ('aoki@gmail.com', 'Aoki01', 'Aoki01@');
     
 INSERT INTO projeto (id, fkUsuario, nome, tipo) VALUES
-	(1, 5, '3D Swan', 'Origami 3D'),
-	(2, 5, 'Polygonal Cubes and Stars', 'Origami Tradicional'),
+	(1, 1, '3D Swan', 'Origami 3D'),
+	(2, 1, 'Polygonal Cubes and Stars', 'Origami Tradicional'),
 	(3, 5, '3D Snake', 'Origami 3D'),
 	(4, 5, 'DeBugger', 'Origami 3D'),
 	(5, 5, 'Balão 3D', 'Origami 3D'),
     (6, 5, 'Herringbone Tesselation', 'Tesselation'),
 	(7, 5, 'Balão tradicional', 'Origami Tradicional'),
-    (8, 5, 'Joaninha 3D', 'Origami 3D'),
+    (8, 1, 'Joaninha 3D', 'Origami 3D'),
     (9, 5, 'Icosaedro', 'Origami Modular');
 
 INSERT INTO comentario (id, fkProjeto, fkUsuario, comentario) VALUES
@@ -87,7 +87,8 @@ INSERT INTO quiz (pontuacao, avaliacao, fkUsuario) VALUES
     (1, 'Ruim', 5),
     (2, 'Mediano', 2),
     (3, 'Ótimo', 5),
-    (4, 'Bom', 3);
+    (4, 'Bom', 3),
+    (5, 'Ótimo', 5);
 
 INSERT INTO curtida (id, fkUsuario, fkProjeto) VALUES
 (1, 1, 1),
@@ -185,3 +186,5 @@ LEFT JOIN (SELECT fkProjeto, COUNT(c.fkProjeto) AS totalComentarios FROM comenta
 			GROUP BY fkProjeto) AS comentarios ON comentarios.fkProjeto = p.id
 WHERE p.fkUsuario = 5
 ORDER BY p.id;
+
+SELECT * FROM projeto;

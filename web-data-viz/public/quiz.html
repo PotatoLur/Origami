@@ -620,6 +620,18 @@
         var tabelaDados = '';
 
         for (var i = 0; i < tabela.length; i++){
+            if (tabela[i].nome == null){
+                tabela[i].nome = 0
+            }
+            if (tabela[i].tipo == null){
+                tabela[i].tipo = 0
+            }
+            if (tabela[i].curtida == null){
+                tabela[i].curtida = 0
+            }
+            if (tabela[i].comentario == null){
+                tabela[i].comentario = 0
+            }
             tabelaDados += `<tr>
                                 <td>${tabela[i].nome}</td>
                                 <td>${tabela[i].tipo}</td>

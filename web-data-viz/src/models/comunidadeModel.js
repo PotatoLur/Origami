@@ -49,11 +49,17 @@ function comentar(fkUsuario, fkProjeto, comentario) {
     return database.executar(instrucao);
 }
 
+function enviar(usuario) {
+  const instrucao = `INSERT INTO projeto (fkUsuario, nome, tipo) values (${usuario.id}, '${usuario.nome}', '${usuario.tipo}')`;
+
+  return database.executar(instrucao);
+}
 
 module.exports = {
     listar,
     adicionar,
     remover,
     verificar,
-    comentar
+    comentar,
+    enviar
 };
