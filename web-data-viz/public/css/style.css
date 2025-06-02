@@ -464,6 +464,7 @@ header .navbar_direita {
     border-radius: 100%;
     height: 50px;
     width: 50px;
+    cursor: pointer;
 }
 
 .com_login .exemplo .postagem .area_comentario .interacao_comentario .enviar button:hover {
@@ -652,12 +653,6 @@ header .navbar_direita {
     border: black solid 2px;
     background: linear-gradient(to right, #86de86, #a0e5a0, #6fcf97);
     transition: 0.8s;
-}
-
-.comunidade #btn_pesquisar:hover {
-    cursor: pointer;
-    border: black solid 1px;
-    background: #b8b6b6;
 }
 
 #navbar_sair {
@@ -863,8 +858,6 @@ header .navbar_direita {
 }
 
 .quiz table {
-    /* border-collapse: collapse; */
-    /* border: 2px solid rgb(140 140 140); */
     background-color: #ffffffbd;
     font-size: 22px;
     border-radius: 40px;
