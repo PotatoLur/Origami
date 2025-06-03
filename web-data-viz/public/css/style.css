@@ -101,9 +101,9 @@ header .navbar_direita {
     border: black solid 5px;
     padding: 15px;
     gap: 15px;
-    background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(210, 255, 210, 0.8));
+    background: linear-gradient(#ffffffe6, #d2ffd2cc);
     border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px #0000001a;
 }
 
 .main_tsuru p {
@@ -118,9 +118,9 @@ header .navbar_direita {
     padding: 30px 20px;
     gap: 30px;
     width: 48%;
-    background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(210, 255, 210, 0.8));
+    background: linear-gradient(#ffffffe6, #d2ffd2cc);
     border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px #0000001a;
 }
 
 .origami_tipo {
@@ -208,9 +208,9 @@ header .navbar_direita {
     width: 50%;
     border: black solid 2px;
     padding: 20px;
-    background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(210, 255, 210, 0.8));
+    background: linear-gradient(#ffffffe6, #d2ffd2cc);
     border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px #0000001a;
 }
 
 .autor h1 {
@@ -265,8 +265,22 @@ header .navbar_direita {
     width: 80%;
 }
 
-.areaCompartilhar {
+.comunidade .borda {
     display: none;
+    flex-direction: column;
+    align-items: center;
+    font-size: 25px;
+    border: black solid 5px;
+    padding: 30px 20px;
+    gap: 30px;
+    width: 50%;
+    background: linear-gradient(#ffffffe6, #d2ffd2cc);
+    border-radius: 12px;
+    box-shadow: 0 4px 10px #0000001a;
+}
+
+.areaCompartilhar {
+    display: flex;
     flex-direction: column;
     align-items: center;
 }
@@ -276,8 +290,8 @@ header .navbar_direita {
 }
 
 .enviarProjeto {
-    display: none;
-    width: 60%;
+    display: flex;
+    width: 100%;
     justify-content: center;
     gap: 2%;
     align-items: center;
@@ -401,7 +415,7 @@ header .navbar_direita {
     margin-right: 10px;
 }
 
-.heart-btn {
+.btnCurtir {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -415,34 +429,34 @@ header .navbar_direita {
     transition: all 0.3s ease;
 }
 
-.heart-btn::before {
+.btnCurtir::before {
     content: "♡";
     position: absolute;
     color: #d32f2f;
     transition: all 0.2s;
 }
 
-.heart-btn.curtido {
+.btnCurtir.curtido {
     background-color: transparent;
 }
 
-.heart-btn.curtido::before {
+.btnCurtir.curtido::before {
     content: "♥";
     color: #ff0000;
     font-size: 50px;
 }
 
-.heart-btn:not(.curtido):hover {
+.btnCurtir:not(.curtido):hover {
     background-color: #ff9999;
     transform: scale(1.1);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px #0000001a;
 }
 
-.heart-btn:not(.curtido):hover::before {
+.btnCurtir:not(.curtido):hover::before {
     transform: scale(1.15);
 }
 
-.heart-btn:active {
+.btnCurtir:active {
     transform: scale(0.95);
 }
 
@@ -503,12 +517,13 @@ header .navbar_direita {
 /* MAIN CADASTRO */
 
 .cadastro {
-    height: var(--tamanho_main);
+    height: calc(100vh - var(--tamanho_header) - var(--tamanho_footer) - 50px);
     background: linear-gradient(to right, #86de86, #a0e5a0, #6fcf97);
     padding: 20px 30px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     font-size: 27px;
 }
 
@@ -520,7 +535,7 @@ header .navbar_direita {
     background-color: #f5f3eb;
     color: #000000;
     width: 30%;
-    height: 100%;
+    height: fit-content;
     padding: 30px;
     border-radius: 30px;
 }
@@ -574,7 +589,7 @@ header .navbar_direita {
     background-color: #f5f3eb;
     color: #000000;
     width: 30%;
-    height: 415px;
+    height: fit-content;
     padding: 30px;
     border-radius: 30px;
 }
@@ -689,7 +704,6 @@ header .navbar_direita {
 
 /* QUIZ */
 :root {
-    --primary-brand-color: black;
     --success: #198754;
     --success-dark: #095c36;
     --success-light: #c5fce2;
@@ -699,9 +713,6 @@ header .navbar_direita {
     --danger: #dc3545;
     --danger-dark: #990c19;
     --danger-light: #f0c1c6;
-    --new-gray: #CCCCCC;
-    --new-black: #212427;
-    --new-white: #E8E8E8;
 }
 
 .quiz {
@@ -809,7 +820,7 @@ header .navbar_direita {
 }
 
 .quiz .border {
-    border: 3px solid var(--primary-brand-color);
+    border: 10px solid black;
     border-radius: 25px;
     padding: 25px;
 }
@@ -831,10 +842,6 @@ header .navbar_direita {
 .quiz .text-danger-with-bg {
     color: var(--danger-dark);
     background-color: var(--danger-light);
-}
-
-.quiz .text-new-gray {
-    color: var(--new-gray);
 }
 
 .quiz .grafico {
@@ -895,10 +902,12 @@ header .navbar_direita {
 .quiz table td {
     background-color: #6fcf97;
 }
-.quiz table th, td {
-  border: 2px solid black;
-  padding: 8px 10px;
-  border-radius: 10px;
+
+.quiz table th,
+td {
+    border: 2px solid black;
+    padding: 8px 10px;
+    border-radius: 10px;
 }
 
 /* FOOTER */

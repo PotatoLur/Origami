@@ -50,15 +50,15 @@
             <div class="exemplo">
                 <img class="comunidade_img" src="./img/3D Swan.jpeg" alt="">
                 <div class="texto">
-                    <p>Autor: Guilherme Aoki</p>
+                    <p>Autor: Aoki01</p>
                     <p>Tipo: Origami 3D</p>
-                    <p>Nome: 3D Origami Swan</p>
+                    <p>Nome: 3D Swan</p>
                 </div>
             </div>
             <div class="exemplo">
                 <div class="texto">
-                    <p>Autor: Guilherme Aoki</p>
-                    <p>Tipo: Tradicional/Outros</p>
+                    <p>Autor: Aoki01</p>
+                    <p>Tipo: Origami Tradicional</p>
                     <p>Nome: Polygonal Cubes and Stars</p>
                 </div>
                 <div class="slides">
@@ -69,7 +69,7 @@
             </div>
             <div class="diferente_tipo">
                 <h2>Origami World</h2>
-                <p>Aqui você vai encontrar todos esses estilos de origami reunidos em um só lugar, com criações
+                <p>Aqui você vai encontrar todos estes estilos de origami reunidos em um só lugar, com criações
                     incríveis de pessoas apaixonadas pela arte de dobrar papel. Explore, descubra, inspire-se e
                     compartilhe suas próprias obras com a nossa comunidade! Venha fazer parte desse mundo de
                     criatividade e formas surpreendentes!<br> <br> Cadastre-se agora mesmo:</p>
@@ -79,21 +79,23 @@
         <div class="com_login" id="com_login">
 
         </div>
-        <div class="areaCompartilhar" id="areaCompartilhar">
-            <h2>Compartilhe os seus projetos:</h2>
-            <span>Apenas arquivos JPEG</span>
-        </div>
-        <div class="enviarProjeto" id="enviarProjeto">
-            <label>Nome do projeto: </label>
-            <input name="ipt_nome" id="ipt_nome" type="text" />
-            <select id="sel_tipo">
-                <option value="Origami Tradicional">Origami Tradicional</option>
-                <option value="Origami Modular">Origami Modular</option>
-                <option value="Origami Tessellation">Origami Tessellation</option>
-                <option value="Origami 3D">Origami 3D</option>
-            </select>
-            <input name="foto_origami" id="foto_origami" type="file" />
-            <button id="btn_enviarOrigami" onclick="enviarOrigami()">Enviar</button>
+        <div class="borda" id="bordaComunidade">
+            <div class="areaCompartilhar" id="areaCompartilhar">
+                <h2>Compartilhe os seus projetos:</h2>
+                <label>*Nome do projeto igual o nome do arquivo*</label>
+                <span>Apenas arquivos JPEG</span>
+            </div>
+            <div class="enviarProjeto" id="enviarProjeto">
+                <span>Tipo do Origami:</span>
+                <select id="sel_tipo">
+                    <option value="Origami Tradicional">Origami Tradicional</option>
+                    <option value="Origami Modular">Origami Modular</option>
+                    <option value="Origami Tessellation">Origami Tessellation</option>
+                    <option value="Origami 3D">Origami 3D</option>
+                </select>
+                <input name="foto_origami" id="foto_origami" type="file" />
+                <button id="btn_enviarOrigami" onclick="enviarOrigami()">Enviar</button>
+            </div>
         </div>
     </main>
 
@@ -114,6 +116,7 @@
             <h6>Mais informações</h6>
             <a href="index.html">História</a>
             <a href="autor.html">Autor</a>
+            <a href="quiz.html" id="footer_quiz">Quiz</a>
             <a href="cadastro.html" id="footer_cadastro">Cadastro</a>
             <a href="login.html" id="footer_login">Login</a>
         </div>
@@ -127,6 +130,7 @@
 
 <script>
     var logado = sessionStorage.getItem('logado');
+    // Verifica se o usuário já foi logado
     if (logado == 'logadoSim') {
         sem_login.style.display = 'none';
         com_login.style.display = 'flex';
@@ -134,13 +138,14 @@
         navbar_login.style.display = 'none';
         navbar_sair.style.display = 'flex';
         navbar_quiz.style.display = 'block';
-        enviarProjeto.style.display = 'block';
-        areaCompartilhar.style.display = 'flex';
+        footer_quiz.style.display = 'block';
+        bordaComunidade.style.display = 'flex';
         footer_cadastro.style.display = 'none';
         footer_login.style.display = 'none';
         carregarPosts()
     } else {
         navbar_quiz.style.display = 'none';
+        footer_quiz.style.display = 'none';
     }
 
     function irParaCadastro() {
@@ -148,7 +153,7 @@
     }
 
     document.querySelector('#navbar_sair').onclick = (e) => {
-        e.preventDefault();
+        e.preventDefault(); // Impede com que o comando aconteça, foi utilizado para conseguir mudar de janela para o index.html.
         sessionStorage.setItem('logado', 'logadoNao');
         window.location.href = './index.html';
     }
@@ -164,15 +169,16 @@
                 return resultado.json();
             })
             .then(function (posts) {
-                var containerPrincipal = document.querySelector('.com_login');
+                var containerPrincipal = document.querySelector('.com_login'); // Pega o item com a classe '.com_login'.
                 containerPrincipal.innerHTML = '';
-                const nomeUsuario = sessionStorage.getItem('NOME_USUARIO');
+                const nomeUsuario = sessionStorage.getItem('NOME_USUARIO'); // Pega o nome do usuário que foi salvo no sessionStorage no login.
 
                 var postsAgrupados = {};
                 for (var i = 0; i < posts.length; i++) {
                     var post = posts[i];
                     if (!postsAgrupados[post.id]) {
-                        postsAgrupados[post.id] = {
+                        postsAgrupados[post.id] =
+                        {
                             id: post.id,
                             autor: post.autor,
                             tipo: post.tipo,
@@ -196,70 +202,69 @@
                     var divExemplo = document.createElement('div');
                     divExemplo.className = 'exemplo';
 
-                    // Constrói HTML dos comentários
-                    var comentariosHTML = '<p>💬 Comentários:</p>';
+                    var comentarios = `<p>💬 Comentários:</p>`;
                     for (var j = 0; j < post.comentarios.length; j++) {
                         var comentario = post.comentarios[j];
-                        comentariosHTML += `<b>${comentario.autor}:</b> ${comentario.texto}<br>`;
+                        comentarios += `<b>${comentario.autor}:</b> ${comentario.texto}<br>`;
                     }
 
-                    // HTML do post (alternando layout)
+                    // Imagem no lado esquerdo
                     if (i % 2 == 0) {
                         divExemplo.innerHTML = `
-                    <img class="comunidade_img" src="./img/${post.nome}.jpeg" alt="${post.nome}">
-                    <div class="postagem">
-                        <div class="topo_postagem">
-                            <div class="texto">
-                                <p>Autor: ${post.autor}</p>
-                                <p>Tipo: ${post.tipo}</p>
-                                <p>Nome: ${post.nome}</p>
+                        <img class="comunidade_img" src="./img/${post.nome}.jpeg" alt="${post.nome}">
+                        <div class="postagem">
+                            <div class="topo_postagem">
+                                <div class="texto">
+                                    <p>Autor: ${post.autor}</p>
+                                    <p>Tipo: ${post.tipo}</p>
+                                    <p>Nome: ${post.nome}</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="area_comentario">
-                            <div class="comentario">${comentariosHTML}</div>
-                            <div class="interacao_comentario">
-                                <div class="input_comentario">
-                                    <span>${nomeUsuario}</span>
-                                    <input type="text" id="ipt_comentario-${post.id}">
-                                    <div class="enviar">
-                                        <button onclick="comentar(${post.id})" id="btnComentar-${post.id}"></button>
+                            <div class="area_comentario">
+                                <div class="comentario">${comentarios}</div>
+                                <div class="interacao_comentario">
+                                    <div class="input_comentario">
+                                        <span>${nomeUsuario}</span>
+                                        <input type="text" id="ipt_comentario-${post.id}">
+                                        <div class="enviar">
+                                            <button onclick="comentar(${post.id})" id="btnComentar-${post.id}"></button>
+                                        </div>
+                                    </div>
+                                    <div class="curtir">
+                                        <button class="btnCurtir" onclick="curtir(${post.id})" id="btnCurtir-${post.id}"></button>
+                                        <span id="numCurtida-${post.id}">${post.curtida}</span>
                                     </div>
                                 </div>
-                                <div class="curtir">
-                                    <button class="heart-btn" onclick="curtir(${post.id})" id="btnCurtir-${post.id}"></button>
-                                    <span id="numCurtida-${post.id}">${post.curtida}</span>
-                                </div>
                             </div>
-                        </div>
-                    </div>`;
-                    } else {
+                        </div>`;
+                    } else { // Imagem do lado direito
                         divExemplo.innerHTML = `
-                    <div class="postagem">
-                        <div class="topo_postagem">
-                            <div class="texto">
-                                <p>Autor: ${post.autor}</p>
-                                <p>Tipo: ${post.tipo}</p>
-                                <p>Nome: ${post.nome}</p>
+                        <div class="postagem">
+                            <div class="topo_postagem">
+                                <div class="texto">
+                                    <p>Autor: ${post.autor}</p>
+                                    <p>Tipo: ${post.tipo}</p>
+                                    <p>Nome: ${post.nome}</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="area_comentario">
-                            <div class="comentario">${comentariosHTML}</div>
-                            <div class="interacao_comentario">
-                                <div class="input_comentario">
-                                    <span>${nomeUsuario}</span>
-                                    <input type="text" id="ipt_comentario-${post.id}">
-                                    <div class="enviar">
-                                        <button onclick="comentar(${post.id})" id="btnComentar-${post.id}"></button>
+                            <div class="area_comentario">
+                                <div class="comentario">${comentarios}</div>
+                                <div class="interacao_comentario">
+                                    <div class="input_comentario">
+                                        <span>${nomeUsuario}</span>
+                                        <input type="text" id="ipt_comentario-${post.id}">
+                                        <div class="enviar">
+                                            <button onclick="comentar(${post.id})" id="btnComentar-${post.id}"></button>
+                                        </div>
+                                    </div>
+                                    <div class="curtir">
+                                        <button class="btnCurtir" onclick="curtir(${post.id})" id="btnCurtir-${post.id}"></button>
+                                        <span id="numCurtida-${post.id}">${post.curtida}</span>
                                     </div>
                                 </div>
-                                <div class="curtir">
-                                    <button class="heart-btn" onclick="curtir(${post.id})" id="btnCurtir-${post.id}"></button>
-                                    <span id="numCurtida-${post.id}">${post.curtida}</span>
-                                </div>
                             </div>
                         </div>
-                    </div>
-                    <img class="comunidade_img" src="./img/${post.nome}.jpeg" alt="${post.nome}">`;
+                        <img class="comunidade_img" src="./img/${post.nome}.jpeg" alt="${post.nome}">`;
                     }
 
                     containerPrincipal.appendChild(divExemplo);
@@ -328,11 +333,9 @@
             }).then(response => response.json())
                 .then(data => {
                     if (data.affectedRows > 0) {
-                        // Encontra a div de comentários correta
                         const postElement = input.closest('.exemplo');
                         const comentarioDiv = postElement.querySelector('.comentario');
 
-                        // Adiciona o novo comentário
                         if (comentarioDiv.innerHTML.includes('Nenhum comentário ainda')) {
                             comentarioDiv.innerHTML = `<p>💬 Comentários:</p><b>${nomeUsuario}:</b> ${comentario}`;
                         } else {
@@ -355,9 +358,10 @@
     function enviarOrigami() {
         const usuarioId = sessionStorage.getItem('ID_USUARIO');
         const formData = new FormData();
-        
+
         formData.append('foto', foto_origami.files[0])
-        formData.append('nome', ipt_nome.value)
+        const nomeProjeto = foto_origami.files[0].name.split('.')[0];
+        formData.append('nome', nomeProjeto)
         formData.append('tipo', sel_tipo.value)
         formData.append('id', usuarioId)
 

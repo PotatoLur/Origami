@@ -83,13 +83,11 @@
 
 <script>
   function cadastrar() {
-    // Agora vá para o método fetch logo abaixo
     var nomeVar = ipt_nome.value;
     var emailVar = ipt_email.value;
     var senhaVar = ipt_senha.value;
     var cadastroVerificado = 0;
 
-    // Verificando se há algum campo em branco
     div_erro_email.style.display = "none";
     div_erro_nome.style.display = "none";
     div_erro_senha.style.display = "none";
@@ -101,7 +99,7 @@
       div_erro.style.display = "block";
       div_erro.innerHTML = "Preencher todos os campos.";
       cadastroVerificado++;
-    } 
+    }
     else {
       div_erro.style.display = "none";
       if (
@@ -111,19 +109,19 @@
         div_erro_email.style.display = "block";
         div_erro_email.innerHTML = "Insira um e-mail válido";
         cadastroVerificado++;
-      }  
+      }
       if (
         nomeVar.length < 6
       ) {
         div_erro_nome.style.display = "block";
         div_erro_nome.innerHTML = "Usuário deve ter pelo menos 6 dígitos";
         cadastroVerificado++;
-      }  
+      }
       if (
         senhaVar.length < 6 ||
         (!senhaVar.includes('@') &&
-        !senhaVar.includes('!') &&
-        !senhaVar.includes('#'))
+          !senhaVar.includes('!') &&
+          !senhaVar.includes('#'))
       ) {
         div_erro_senha.style.display = "block";
         div_erro_senha.innerHTML = "Senha deve ter pelo menos 6 dígitos e (!, @ ou #)";
@@ -131,25 +129,23 @@
       }
     }
 
-    if (cadastroVerificado > 0){
+    if (cadastroVerificado > 0) {
       return false;
     }
 
-    // Enviando o valor da nova input
     fetch("/usuarios/cadastrar", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        // Agora vá para o arquivo routes/usuarios.js
         nomeServer: nomeVar,
         emailServer: emailVar,
         senhaServer: senhaVar,
       }),
     })
       .then(function (resposta) {
-        console.log("resposta: ", resposta);
+        console.log("Resposta: ", resposta);
 
         if (resposta.ok) {
           div_erro.style.display = "block";
@@ -159,8 +155,10 @@
             window.location = "./login.html";
           }, "2000");
 
-          limparFormulario();
         } else {
+          // Caso de algum erro no banco de dados ou no fetch.
+          div_erro.style.display = "block";
+          div_erro.innerHTML = 'Erro no cadastro! Nome de usuário indisponível!';
           throw "Houve um erro ao tentar realizar o cadastro!";
         }
       })

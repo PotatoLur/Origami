@@ -6,7 +6,7 @@ USE origami;
 CREATE TABLE usuario (
 	id INT NOT NULL AUTO_INCREMENT,
     email VARCHAR (45),
-    nome VARCHAR (45),
+    nome VARCHAR (45) UNIQUE,
     senha VARCHAR (45),
     PRIMARY KEY (id)
 );
@@ -108,31 +108,29 @@ INSERT INTO curtida (id, fkUsuario, fkProjeto) VALUES
 (15, 4, 8),
 (16, 4, 9);
 
-SELECT * FROM usuario;
-
 SELECT * FROM quiz q
 INNER JOIN usuario u ON u.id = q.fkUsuario;
-
-SELECT * FROM quiz;
 
 SELECT pontuacao 
 FROM quiz
 WHERE fkUsuario = (SELECT id FROM usuario WHERE nome = 'Aoki01');
 
-SELECT 
-            p.id AS id,
-            u.nome AS autor,
-            p.tipo AS tipo,
-            p.nome AS nome,
-            c.comentario AS comentario,
-            (SELECT COUNT(*) FROM curtida WHERE fkProjeto = p.id) AS curtida,
-            cu.nome AS comentUsu
-        FROM projeto p
-        INNER JOIN usuario u ON u.id = p.fkUsuario
-        LEFT JOIN comentario c ON c.fkProjeto = p.id
-        LEFT JOIN usuario cu ON cu.id = c.fkUsuario
-        GROUP BY p.id, u.nome, p.tipo, p.nome, c.comentario, cu.nome
-        ORDER BY p.id;
+SELECT p.id AS id,
+       u.nome AS autor,
+       p.tipo AS tipo,
+       p.nome AS nome,
+       c.comentario AS comentario,
+	   (SELECT COUNT(*) 
+        FROM curtida 
+        WHERE fkProjeto = p.id) 
+        AS curtida,
+       cu.nome AS comentUsu
+       FROM projeto p
+       INNER JOIN usuario u ON u.id = p.fkUsuario
+       LEFT JOIN comentario c ON c.fkProjeto = p.id
+       LEFT JOIN usuario cu ON cu.id = c.fkUsuario
+       GROUP BY p.id, u.nome, p.tipo, p.nome, c.comentario, cu.nome
+       ORDER BY p.id;
 
 SELECT p.id AS projeto_id,
 	   p.nome AS nome_projeto,
@@ -143,48 +141,25 @@ GROUP BY p.id, p.nome;
 
 SELECT * FROM comentario;
 
-SELECT * FROM usuario;
-
 SELECT * FROM curtida c
 INNER JOIN projeto p ON fkProjeto = p.id
 INNER JOIN usuario u ON u.id = c.fkUsuario
 WHERE p.nome LIKE '%Balão%'
 ORDER BY data_curtida;
 
-
-
-SELECT fkProjeto, COUNT(c.fkProjeto) AS totalComentarios FROM comentario c
-INNER JOIN projeto p ON p.id = c.fkProjeto
-GROUP BY fkProjeto;
-
-SELECT * FROM usuario u
-INNER JOIN curtida cu ON cu.fkUsuario = u.id
-INNER JOIN comentario c ON c.fkUsuario = u.id
-ORDER BY u.id;
-
-SELECT * FROM curtida;
-SELECT * FROM comentario;
-
-SELECT * FROM projeto p
-LEFT JOIN curtida cu ON cu.fkProjeto = p.id
-LEFT JOIN comentario c ON c.fkProjeto = p.id;
-
-SELECT p.nome, p.tipo, 
-		COUNT(cu.fkProjeto) AS totalCurtidas, 
-        COUNT(c.id) AS totalComentarios 
-FROM projeto p
-LEFT JOIN curtida cu ON cu.fkProjeto = p.id
-LEFT JOIN comentario c ON c.fkProjeto = p.id
-GROUP BY p.nome, p.tipo;
-
 SELECT p.nome, p.tipo,
-		totalCurtidas, totalComentarios
+	   totalCurtidas, 
+       totalComentarios
 FROM projeto p
-LEFT JOIN (SELECT fkProjeto, COUNT(cu.fkProjeto) AS totalCurtidas FROM curtida cu
-			GROUP BY fkProjeto) AS curtidas ON curtidas.fkProjeto = p.id
-LEFT JOIN (SELECT fkProjeto, COUNT(c.fkProjeto) AS totalComentarios FROM comentario c
-			GROUP BY fkProjeto) AS comentarios ON comentarios.fkProjeto = p.id
+LEFT JOIN (SELECT fkProjeto, COUNT(cu.fkProjeto) AS totalCurtidas 
+		   FROM curtida cu
+		   GROUP BY fkProjeto) 
+           AS curtidas ON curtidas.fkProjeto = p.id
+LEFT JOIN (SELECT fkProjeto, COUNT(c.fkProjeto) AS totalComentarios 
+		   FROM comentario c
+		   GROUP BY fkProjeto) 
+           AS comentarios ON comentarios.fkProjeto = p.id
 WHERE p.fkUsuario = 5
 ORDER BY p.id;
 
-SELECT * FROM projeto;
+SELECT * FROM comentario;
