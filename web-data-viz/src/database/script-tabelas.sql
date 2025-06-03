@@ -77,8 +77,9 @@ INSERT INTO comentario (id, fkProjeto, fkUsuario, comentario) VALUES
 	(5, 5, 2, 'Nossa. Eu quero um!'),
 	(6, 6, 3, 'Muito interessante!'),
 	(7, 7, 1, 'Vou tentar fazer.'),
-	(8, 8, 4, 'Muito bem, ficou show com essas cores.');
-    
+	(8, 8, 4, 'Muito bem, ficou show com essas cores.'),
+    (9, 9, 3, 'Muito legal!');
+
 INSERT INTO quiz (pontuacao, avaliacao, fkUsuario) VALUES
 	(5, 'Bom', 1),
     (4, 'Mediano', 1),
@@ -161,5 +162,3 @@ LEFT JOIN (SELECT fkProjeto, COUNT(c.fkProjeto) AS totalComentarios
            AS comentarios ON comentarios.fkProjeto = p.id
 WHERE p.fkUsuario = 5
 ORDER BY p.id;
-
-SELECT * FROM comentario;

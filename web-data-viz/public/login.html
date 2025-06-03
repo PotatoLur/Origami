@@ -139,7 +139,7 @@
                     sessionStorage.setItem('NOME_USUARIO', json.nome);
                     sessionStorage.setItem('EMAIL_USUARIO', json.email);
                     
-                    div_erro.innerHTML = 'Entrando na conta...';
+                    div_erro.innerHTML = `<span style="color: #51bd51;">Entrando na conta...</span>`;
                     setTimeout(function () {
                         window.location = "./comunidade.html";
                     }, 1000);

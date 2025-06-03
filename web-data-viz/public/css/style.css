@@ -318,6 +318,8 @@ header .navbar_direita {
     width: fit-content;
     height: 100%;
     border: none;
+    padding: 2px;
+    cursor: pointer;
 }
 
 .enviarProjeto #btn_enviarOrigami {
@@ -415,6 +417,8 @@ header .navbar_direita {
     margin-right: 10px;
 }
 
+/* BOTÃO DE CURTIR */
+
 .btnCurtir {
     display: flex;
     align-items: center;
@@ -426,38 +430,33 @@ header .navbar_direita {
     background-color: #ffcccc;
     font-size: 40px;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: 0.4s;
 }
 
 .btnCurtir::before {
     content: "♡";
     position: absolute;
     color: #d32f2f;
-    transition: all 0.2s;
+    transition: 0.2s;
 }
 
 .btnCurtir.curtido {
-    background-color: transparent;
+    background-color: #ffcccc;
 }
 
 .btnCurtir.curtido::before {
     content: "♥";
     color: #ff0000;
-    font-size: 50px;
+    font-size: 45px;
 }
 
 .btnCurtir:not(.curtido):hover {
     background-color: #ff9999;
     transform: scale(1.1);
-    box-shadow: 0 2px 8px #0000001a;
 }
 
 .btnCurtir:not(.curtido):hover::before {
     transform: scale(1.15);
-}
-
-.btnCurtir:active {
-    transform: scale(0.95);
 }
 
 .com_login .exemplo .postagem .area_comentario .interacao_comentario .curtir span {
@@ -465,7 +464,6 @@ header .navbar_direita {
     font-weight: bold;
     color: #212427;
 }
-
 
 .com_login .exemplo .postagem .area_comentario .interacao_comentario .input_comentario {
     display: flex;
@@ -505,6 +503,8 @@ header .navbar_direita {
     transform: scale(1.1);
     background-color: #84e0fc;
     border-radius: 50%;
+    border: black 2px solid;
+    transition: 0.6s;
 }
 
 .com_login .exemplo .postagem .area_comentario .interacao_comentario .input_comentario .enviar {
