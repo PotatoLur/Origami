@@ -275,7 +275,7 @@ header .navbar_direita {
     gap: 30px;
     width: 50%;
     background: linear-gradient(#ffffffe6, #d2ffd2cc);
-    border-radius: 12px;
+    border-radius: 20px;
     box-shadow: 0 4px 10px #0000001a;
 }
 
@@ -907,7 +907,7 @@ header .navbar_direita {
 td {
     border: 2px solid black;
     padding: 8px 10px;
-    border-radius: 10px;
+    border-radius: 7px;
 }
 
 /* FOOTER */

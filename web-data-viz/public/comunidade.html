@@ -174,7 +174,7 @@
                 const nomeUsuario = sessionStorage.getItem('NOME_USUARIO'); // Pega o nome do usuário que foi salvo no sessionStorage no login.
                 const userId = sessionStorage.getItem('ID_USUARIO');
 
-                var postsAgrupados = {};
+                var postsAgrupados = [];
                 for (var i = 0; i < posts.length; i++) {
                     var post = posts[i];
                     if (!postsAgrupados[post.id]) {
@@ -197,9 +197,8 @@
                     }
                 }
 
-                var postsParaExibir = Object.values(postsAgrupados);
-                for (var i = 0; i < postsParaExibir.length; i++) {
-                    var post = postsParaExibir[i];
+                for (var i = 0; i < postsAgrupados.length - 1; i++) {
+                    var post = postsAgrupados[i + 1];
 
                     var comentarios = `<p>💬 Comentários:</p>`;
                     for (var j = 0; j < post.comentarios.length; j++) {
