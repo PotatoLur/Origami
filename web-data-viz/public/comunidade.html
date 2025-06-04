@@ -50,14 +50,14 @@
             <div class="exemplo">
                 <img class="comunidade_img" src="./img/3D Swan.jpeg" alt="">
                 <div class="texto">
-                    <p>Autor: Aoki01</p>
+                    <p>Autor: João Silva</p>
                     <p>Tipo: Origami 3D</p>
                     <p>Nome: 3D Swan</p>
                 </div>
             </div>
             <div class="exemplo">
                 <div class="texto">
-                    <p>Autor: Aoki01</p>
+                    <p>Autor: João Silva</p>
                     <p>Tipo: Origami Tradicional</p>
                     <p>Nome: Polygonal Cubes and Stars</p>
                 </div>
@@ -352,13 +352,16 @@
     function enviarOrigami() {
         const usuarioId = sessionStorage.getItem('ID_USUARIO');
         const formData = new FormData();
-        if (foto_origami.value == '')
-        console.log(foto_origami.value)
         formData.append('foto', foto_origami.files[0])
         const nomeProjeto = foto_origami.files[0].name.split('.')[0];
+        const tipoProjeto = foto_origami.files[0].name.split('.')[1];
         formData.append('nome', nomeProjeto)
         formData.append('tipo', sel_tipo.value)
         formData.append('id', usuarioId)
+
+        if (tipoProjeto != 'jpeg'){
+            return alert('Inserir um arquivo válido. Apenas arquivos .JPEG.');
+        }
         
         fetch("/comunidade/enviar", {
             method: "POST",
