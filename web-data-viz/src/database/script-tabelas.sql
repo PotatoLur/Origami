@@ -92,22 +92,22 @@ INSERT INTO quiz (pontuacao, avaliacao, fkUsuario) VALUES
     (5, 'Ótimo', 5);
 
 INSERT INTO curtida (id, fkUsuario, fkProjeto) VALUES
-(1, 1, 1),
-(2, 1, 2),
-(3, 1, 3),
-(4, 2, 2),
-(5, 2, 3),
-(6, 2, 4),
-(7, 2, 5),
-(8, 3, 1),
-(9, 3, 5),
-(10, 3, 6),
-(11, 3, 7),
-(12, 4, 1),
-(13, 4, 2),
-(14, 4, 3),
-(15, 4, 8),
-(16, 4, 9);
+	(1, 1, 1),
+	(2, 1, 2),
+	(3, 1, 3),
+	(4, 2, 2),
+	(5, 2, 3),
+	(6, 2, 4),
+	(7, 2, 5),
+	(8, 3, 1),
+	(9, 3, 5),
+	(10, 3, 6),
+	(11, 3, 7),
+	(12, 4, 1),
+	(13, 4, 2),
+	(14, 4, 3),
+	(15, 4, 8),
+	(16, 4, 9);
 
 SELECT * FROM quiz q
 INNER JOIN usuario u ON u.id = q.fkUsuario;
@@ -123,7 +123,7 @@ SELECT p.id AS id,
        c.comentario AS comentario,
 	   (SELECT COUNT(*) 
         FROM curtida 
-        WHERE fkProjeto = p.id) 
+        WHERE fkProjeto = p.id)
         AS curtida,
        cu.nome AS comentUsu
        FROM projeto p
@@ -154,7 +154,7 @@ SELECT p.nome, p.tipo,
 FROM projeto p
 LEFT JOIN (SELECT fkProjeto, COUNT(cu.fkProjeto) AS totalCurtidas 
 		   FROM curtida cu
-		   GROUP BY fkProjeto) 
+		   GROUP BY fkProjeto)
            AS curtidas ON curtidas.fkProjeto = p.id
 LEFT JOIN (SELECT fkProjeto, COUNT(c.fkProjeto) AS totalComentarios 
 		   FROM comentario c
